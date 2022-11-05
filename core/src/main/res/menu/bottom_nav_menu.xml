@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/to_cart"
+        android:enabled="true"
+        android:icon="@drawable/ic_cart"
+        android:title="@string/to_cart"
+       />
+    <item
+        android:id="@+id/to_favourites"
+        android:enabled="true"
+        android:icon="@drawable/ic_heart"
+        android:title="@string/to_favourites"
+        />
+    <item
+        android:id="@+id/to_account"
+        android:enabled="true"
+        android:icon="@drawable/ic_account"
+        android:title="@string/to_account"
+       />
+</menu>

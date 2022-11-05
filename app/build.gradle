@@ -43,9 +43,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    implementation project(path: ':core')
-    implementation project(path: ':feature-cart')
-    implementation project(path: ':feature-details')
+    implementation project(':core')
+    implementation project(':feature-cart')
+    implementation project(':feature-details')
 
     implementation 'com.google.dagger:dagger:2.42'
     kapt 'com.google.dagger:dagger-compiler:2.42'
