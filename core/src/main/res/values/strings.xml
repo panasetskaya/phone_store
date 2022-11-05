@@ -4,4 +4,7 @@
     <string name="to_cart">Cart</string>
     <string name="to_favourites">Favourites</string>
     <string name="to_account">Account</string>
+    <string name="example_location">Zihuatanejo, Gro</string>
+    <string name="select_category">Select Category</string>
+    <string name="view_all">view all</string>
 </resources>

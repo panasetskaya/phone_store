@@ -4,12 +4,23 @@
     <style name="Theme.PhoneStoreBase" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/background_gray</item>
         <item name="colorPrimaryVariant">@color/background_gray</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/dark_blue</item>
         <item name="colorSecondary">@color/peach_color</item>
         <item name="colorSecondaryVariant">@color/dark_blue</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="fontFamily">@font/mark_pro</item>
+    </style>
+
+    <style name="HeadlineTextAppearance" parent="">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">?colorSecondaryVariant</item>
+    </style>
+
+    <style name="ExtendButtonTextAppearance" parent="">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">?colorSecondary</item>
     </style>
 
 
