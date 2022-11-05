@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.PhoneStoreBase" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/background_gray</item>
+        <item name="colorPrimaryVariant">@color/background_gray</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorSecondary">@color/peach_color</item>
+        <item name="colorSecondaryVariant">@color/dark_blue</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+
+</resources>

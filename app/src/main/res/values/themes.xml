@@ -1,22 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.PhoneStore" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/background_gray</item>
-        <item name="colorPrimaryVariant">@color/background_gray</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/peach_color</item>
-        <item name="colorSecondaryVariant">@color/dark_blue</item>
-        <item name="colorOnSecondary">@color/white</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <!-- Customize your theme here. -->
+    <style name="Theme.PhoneStore" parent="Theme.PhoneStoreBase">
     </style>
 
-    <style name="Rounded" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">16dp</item>
-    </style>
 </resources>
