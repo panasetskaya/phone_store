@@ -12,4 +12,10 @@
     <string name="health">Health</string>
     <string name="books">Books</string>
     <string name="search_hint">Search</string>
+    <string name="hot_sales">Hot Sales</string>
+    <string name="see_more">see more</string>
+    <string name="buy_now"><u>Buy now!</u></string>
+    <string name="hot_sales_mock_title"><u>Some phone</u></string>
+    <string name="hot_sales_mock_subtitle"><u>Per aspera ad astra</u></string>
+    <string name="is_new">New</string>
 </resources>
