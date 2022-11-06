@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="199dp"
+    android:layout_margin="8dp"
+    android:clickable="true"
+    app:cardCornerRadius="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/hot_sale_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/iphone_tool_image"
+            android:scaleType="centerCrop"
+            />
+
+        <TextView
+            android:id="@+id/is_new"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:text="@string/is_new"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            app:fontFamily="@font/sf_pro_display_regular"
+            android:gravity="center"
+            android:background="@drawable/circular"
+            android:backgroundTint="@color/peach_color"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="23dp"/>
+
+        <Button
+            android:id="@+id/buy_now_button"
+            android:layout_width="98dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/buy_now"
+            android:fontFamily="@font/sf_pro_display_regular"
+            app:fontFamily="@font/sf_pro_display_regular"
+            style="@style/ButtonUnderlined"
+            android:paddingBottom="8dp"
+           />
+
+        <TextView
+            android:id="@+id/hot_sale_title"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="68dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hot_sales_mock_title"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            app:fontFamily="@font/sf_pro_display_regular"/>
+
+        <TextView
+            android:id="@+id/hot_sale_subtitle"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hot_sale_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hot_sales_mock_subtitle"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            app:fontFamily="@font/sf_pro_display_regular" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
