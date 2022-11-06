@@ -22,4 +22,11 @@
     <string name="bestseller_mock_title">Samsung Galaxy</string>
     <string name="mock_price">$1,047</string>
     <string name="mock_old_price"><strike>$2,047</strike></string>
+    <string name="done">Done</string>
+    <string name="filter_options">Filter options</string>
+    <string name="default_spinner_item">Something</string>
+    <string name="brands">Brands</string>
+    <string name="price">Price</string>
+    <string name="size">Size</string>
+
 </resources>
