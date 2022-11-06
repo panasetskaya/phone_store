@@ -150,7 +150,9 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_search">
 
@@ -162,41 +164,75 @@
                 android:id="@+id/hot_sales_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
                 android:text="@string/hot_sales"
                 android:textAppearance="@style/HeadlineTextAppearance"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="24dp"
                 android:textSize="25sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/see_all_hot_sales_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp"
+                android:clickable="true"
                 android:text="@string/see_more"
                 android:textAppearance="@style/ExtendButtonTextAppearance"
-                app:layout_constraintTop_toTopOf="@+id/hot_sales_tv"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/hot_sales_tv"
-                android:layout_marginEnd="18dp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/hot_sales_tv" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewHotSales"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/hot_sales_tv"
                 tools:listitem="@layout/hot_sales_card" />
 
+            <TextView
+                android:id="@+id/best_seller_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/best_sellers"
+                android:textAppearance="@style/HeadlineTextAppearance"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewHotSales" />
 
+            <TextView
+                android:id="@+id/see_all_best_sellers_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp"
+                android:clickable="true"
+                android:text="@string/see_more"
+                android:textAppearance="@style/ExtendButtonTextAppearance"
+                app:layout_constraintBottom_toBottomOf="@+id/best_seller_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/best_seller_tv" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewBestSellers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/best_seller_tv"
+                app:spanCount="2"
+                tools:listitem="@layout/best_seller_card" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

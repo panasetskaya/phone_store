@@ -34,7 +34,7 @@
         <item name="android:textColor">?colorOnPrimary</item>
         <item name="android:textSize">11sp</item>
         <item name="textAllCaps">false</item>
-        <item name="android:textFontWeight">999</item>
+
     </style>
 
     <style name="HotSalesTextAppearance" parent="">

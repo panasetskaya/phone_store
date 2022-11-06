@@ -13,9 +13,13 @@
     <string name="books">Books</string>
     <string name="search_hint">Search</string>
     <string name="hot_sales">Hot Sales</string>
+    <string name="best_sellers">Best Sellers</string>
     <string name="see_more">see more</string>
     <string name="buy_now"><u>Buy now!</u></string>
     <string name="hot_sales_mock_title"><u>Some phone</u></string>
     <string name="hot_sales_mock_subtitle"><u>Per aspera ad astra</u></string>
     <string name="is_new">New</string>
+    <string name="bestseller_mock_title">Samsung Galaxy</string>
+    <string name="mock_price">$1,047</string>
+    <string name="mock_old_price"><strike>$2,047</strike></string>
 </resources>

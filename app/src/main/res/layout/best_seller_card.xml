@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="181dp"
+    android:layout_height="227dp"
+    android:layout_margin="8dp"
+    android:clickable="true"
+    app:cardCornerRadius="16dp"
+    android:backgroundTint="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/bestseller_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bestseller_actual_price"
+            android:src="@drawable/samsung_tool_image"
+            android:scaleType="centerCrop"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/is_favorite"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:fabCustomSize="25dp"
+            app:srcCompat="@drawable/ic_baseline_favorite_24"
+            app:maxImageSize="15dp"
+            app:backgroundTint="@color/white"
+            app:tint="@color/peach_color"
+            android:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/not_favorite"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:fabCustomSize="25dp"
+            app:srcCompat="@drawable/ic_heart_peach"
+            app:maxImageSize="15dp"
+            app:backgroundTint="@color/white"
+            app:tint="@color/peach_color"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp" />
+
+
+        <TextView
+            android:id="@+id/bestseller_actual_price"
+            android:layout_marginStart="21dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bestseller_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mock_price"
+            android:textColor="@color/dark_blue"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bestseller_old_price"
+            android:layout_marginStart="7dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintStart_toEndOf="@+id/bestseller_actual_price"
+            app:layout_constraintBottom_toTopOf="@+id/bestseller_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mock_old_price"
+            android:textColor="@color/darker_gray"
+            android:textStyle="bold"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/bestseller_title"
+            android:layout_marginStart="21dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bestseller_mock_title"
+            android:textColor="@color/dark_blue"
+            android:textSize="11sp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
