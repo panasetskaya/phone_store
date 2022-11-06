@@ -4,5 +4,6 @@
     <color name="dark_blue">#010035</color>
     <color name="peach_color">#FF6E4E</color>
     <color name="background_gray">#f5f5f5</color>
+    <color name="darker_gray">#b0acac</color>
     <color name="black">#000000</color>
 </resources>

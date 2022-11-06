@@ -50,7 +50,9 @@
         android:textAppearance="@style/HeadlineTextAppearance"
         app:layout_constraintTop_toBottomOf="@+id/location"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="18dp"/>
+        android:layout_margin="18dp"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/see_all_tv"
@@ -62,6 +64,88 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/select_cat_tv"
         android:layout_marginEnd="18dp"/>
+
+    <LinearLayout
+        android:id="@+id/categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_cat_tv"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        >
+
+        <include layout="@layout/phone_category_layout"
+            android:id="@+id/phone_category"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+          />
+
+        <include layout="@layout/computer_category_layout"
+            android:id="@+id/computer_category"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <include layout="@layout/health_category_layout"
+            android:id="@+id/health_category"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <include layout="@layout/books_category_layout"
+            android:id="@+id/books_category"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_search"
+        android:layout_width="0dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categories"
+        app:layout_constraintEnd_toStartOf="@+id/qr_search"
+        app:hintTextColor="@color/background_gray"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:shapeAppearance="@style/Rounded"
+        app:endIconMode="custom"
+        app:startIconDrawable="@drawable/ic_baseline_search_24"
+        app:startIconTint="@color/peach_color">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_search"
+            android:background="@drawable/nav_background_curved"
+            android:backgroundTint="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/search_hint"
+            android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/qr_layout"
+        android:id="@+id/qr_search"
+        android:clickable="true"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+
+        app:layout_constraintTop_toTopOf="@+id/ti_search"
+        app:layout_constraintBottom_toBottomOf="@+id/ti_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="32dp"/>
 
 
     <include layout="@layout/bottom_menu_bar"
