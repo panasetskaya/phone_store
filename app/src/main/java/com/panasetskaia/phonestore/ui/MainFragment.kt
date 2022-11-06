@@ -39,15 +39,16 @@ class MainFragment : Fragment() {
     }
 
     private fun showBottomSheetDialog() {
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog_layout)
-        setSpinner(bottomSheetDialog.findViewById(R.id.spinner_brand)!!, R.array.brands_array)
-        setSpinner(bottomSheetDialog.findViewById(R.id.spinner_price)!!, R.array.price_array)
-        setSpinner(bottomSheetDialog.findViewById(R.id.spinner_size)!!, R.array.size_array)
-        closeDialog = bottomSheetDialog.findViewById(R.id.close_dialog_button)!!
+        val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet_dialog_layout, null)
+        bottomSheetDialog.setContentView(bottomSheetView)
+        setSpinner(bottomSheetView.findViewById(R.id.spinner_brand), R.array.brands_array)
+        setSpinner(bottomSheetView.findViewById(R.id.spinner_price), R.array.price_array)
+        setSpinner(bottomSheetView.findViewById(R.id.spinner_size), R.array.size_array)
+        closeDialog = bottomSheetView.findViewById(R.id.close_dialog_button)
         closeDialog.setOnClickListener {
             bottomSheetDialog.dismiss()
         }
-        applyFilters = bottomSheetDialog.findViewById(R.id.apply_filters_button)!!
+        applyFilters = bottomSheetView.findViewById(R.id.apply_filters_button)
         applyFilters.setOnClickListener {
             bottomSheetDialog.dismiss()
         }
