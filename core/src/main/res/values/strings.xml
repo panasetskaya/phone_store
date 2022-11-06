@@ -28,5 +28,6 @@
     <string name="brands">Brands</string>
     <string name="price">Price</string>
     <string name="size">Size</string>
+    <string name="details">Product Details</string>
 
 </resources>

@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/background_gray"
     tools:context=".ui.DetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+        android:id="@+id/go_back_button"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/small_background_curved"
+        android:padding="8dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/to_cart_button"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/small_background_curved"
+        android:backgroundTint="@color/peach_color"
+        android:padding="8dp"
+        android:src="@drawable/ic_cart" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/details"
+        android:textColor="@color/dark_blue"
+        android:fontFamily="@font/mark_pro"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/to_cart_button"
+        app:layout_constraintEnd_toStartOf="@+id/to_cart_button"
+        app:layout_constraintStart_toEndOf="@+id/go_back_button"
+        app:layout_constraintTop_toTopOf="@+id/to_cart_button" />
+
+<!--    <androidx.viewpager2.widget.ViewPager2-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"/>-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

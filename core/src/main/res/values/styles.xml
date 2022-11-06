@@ -22,6 +22,7 @@
     <style name="BottomSheetTextAppearance" parent="">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">?colorSecondaryVariant</item>
+        <item name="fontFamily">@font/mark_pro</item>
     </style>
 
     <style name="ExtendButtonTextAppearance" parent="">
