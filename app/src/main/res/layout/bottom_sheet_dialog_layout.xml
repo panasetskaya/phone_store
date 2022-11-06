@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/nav_background_curved"
+    android:backgroundTint="@color/white">
+
+    <ImageView
+        android:id="@+id/close_dialog_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="W,1:1"
+        android:background="@drawable/small_background_curved"
+        android:padding="8dp"
+        android:src="@drawable/ic_baseline_close_24"
+        android:layout_marginStart="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/apply_filters_button"
+        app:layout_constraintBottom_toBottomOf="@+id/apply_filters_button"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/apply_filters_button"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/done"
+        android:gravity="center"
+        style="@style/PeachButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/peach_color"
+        android:background="@drawable/small_background_curved"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/apply_filters_button"
+        app:layout_constraintBottom_toBottomOf="@+id/apply_filters_button"
+        android:text="@string/filter_options"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintStart_toEndOf="@+id/close_dialog_button"
+        app:layout_constraintEnd_toStartOf="@+id/apply_filters_button"/>
+
+    <TextView
+        android:id="@+id/tv_brands"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/brands"
+        android:textAppearance="@style/BottomSheetTextAppearance"
+        android:textStyle="bold"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/apply_filters_button" />
+
+    <Spinner
+        android:id="@+id/spinner_brand"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="46dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginTop="16dp"
+        tools:listitem="@layout/spinner_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_brands" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/price"
+        android:textAppearance="@style/BottomSheetTextAppearance"
+        android:textStyle="bold"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_brand" />
+
+    <Spinner
+        android:id="@+id/spinner_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="46dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginTop="16dp"
+        tools:listitem="@layout/spinner_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_price" />
+
+    <TextView
+        android:id="@+id/tv_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/size"
+        android:textAppearance="@style/BottomSheetTextAppearance"
+        android:textStyle="bold"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_price" />
+
+    <Spinner
+        android:id="@+id/spinner_size"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="46dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginTop="16dp"
+        tools:listitem="@layout/spinner_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_size" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
