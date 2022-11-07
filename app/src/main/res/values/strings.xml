@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="brands_array">
+        <item>IPhone</item>
+        <item>Xiaomi</item>
+        <item>Samsung</item>
+    </string-array>
+    <string-array name="price_array">
+        <item>$300 - $500</item>
+        <item>$500 - $800</item>
+    </string-array>
+    <string-array name="size_array">
+        <item>3.5 to 4.5 inches</item>
+        <item>4.5 to 5.5 inches</item>
+    </string-array>
+
 
 </resources>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainFragment"
-    android:background="@color/background_gray">
+    android:background="?colorPrimary">
 
     <LinearLayout
         android:id="@+id/location"
@@ -119,17 +119,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categories"
         app:layout_constraintEnd_toStartOf="@+id/qr_search"
-        app:hintTextColor="@color/background_gray"
+        app:hintTextColor="?colorPrimary"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:shapeAppearance="@style/Rounded"
         app:endIconMode="custom"
         app:startIconDrawable="@drawable/ic_baseline_search_24"
-        app:startIconTint="@color/peach_color">
+        app:startIconTint="?colorSecondary">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_search"
             android:background="@drawable/nav_background_curved"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="?colorOnSecondary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/search_hint"
