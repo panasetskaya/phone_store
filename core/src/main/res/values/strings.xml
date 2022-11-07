@@ -34,5 +34,11 @@
     <string name="tab_details">Details</string>
     <string name="features">Features</string>
     <string name="select_color">Select color and capacity</string>
+    <string name="tab_default">This is definitely a tab</string>
+    <string name="mock_cpu">Exynos</string>
+    <string name="mock_camera">108 + 12mp</string>
+    <string name="mock_ssd">8 GB</string>
+    <string name="mock_sd">256 GB</string>
+
 
 </resources>
