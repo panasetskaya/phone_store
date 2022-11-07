@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/nav_background_curved"
-    android:backgroundTint="@color/white">
+    android:backgroundTint="?colorOnSecondary"
+    app:cardCornerRadius="16dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/close_dialog_button"
@@ -31,7 +37,7 @@
         style="@style/PeachButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:backgroundTint="@color/peach_color"
+        android:backgroundTint="?colorSecondary"
         android:background="@drawable/small_background_curved"
         />
 
@@ -44,7 +50,7 @@
         android:textSize="18sp"
         android:gravity="center"
         android:textStyle="bold"
-        android:textColor="@color/dark_blue"
+        android:textColor="?colorSecondaryVariant"
         app:layout_constraintStart_toEndOf="@+id/close_dialog_button"
         app:layout_constraintEnd_toStartOf="@+id/apply_filters_button"/>
 
@@ -121,5 +127,6 @@
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_size" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

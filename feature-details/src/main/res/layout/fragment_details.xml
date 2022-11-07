@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/background_gray"
+    android:background="@color/background_gray"
     tools:context=".ui.DetailsFragment">
 
     <ImageView
         android:id="@+id/go_back_button"
         android:layout_width="37dp"
         android:layout_height="37dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="38dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/small_background_curved"
         android:padding="8dp"
@@ -24,32 +23,195 @@
         android:id="@+id/to_cart_button"
         android:layout_width="37dp"
         android:layout_height="37dp"
-        android:layout_marginEnd="40dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="38dp"
         android:background="@drawable/small_background_curved"
         android:backgroundTint="@color/peach_color"
         android:padding="8dp"
-        android:src="@drawable/ic_cart" />
+        android:src="@drawable/ic_cart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/mark_pro"
         android:gravity="center"
         android:text="@string/details"
         android:textColor="@color/dark_blue"
-        android:fontFamily="@font/mark_pro"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/to_cart_button"
         app:layout_constraintEnd_toStartOf="@+id/to_cart_button"
         app:layout_constraintStart_toEndOf="@+id/go_back_button"
         app:layout_constraintTop_toTopOf="@+id/to_cart_button" />
 
-<!--    <androidx.viewpager2.widget.ViewPager2-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"/>-->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerPhonePics"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@id/guidelineHalf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/to_cart_button"
+        android:clipToPadding="false"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHalf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineHalf"
+        android:background="@drawable/nav_background_curved"
+        android:backgroundTint="@color/white"
+        android:elevation="16dp">
+
+        <ImageView
+            android:id="@+id/not_fav"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+
+            android:layout_marginEnd="38dp"
+            android:background="@drawable/small_background_curved"
+            android:padding="8dp"
+            android:src="@drawable/ic_heart"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/phone_name"
+            app:layout_constraintBottom_toBottomOf="@+id/phone_name"/>
+
+        <ImageView
+            android:id="@+id/is_fav"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+
+            android:layout_marginEnd="38dp"
+            android:background="@drawable/small_background_curved"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_favorite_24"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/phone_name"
+            app:layout_constraintBottom_toBottomOf="@+id/phone_name"/>
+
+        <TextView
+            android:id="@+id/phone_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="38dp"
+            android:text="@string/hot_sales_mock_title"
+            android:textSize="24sp"
+            android:textColor="?colorSecondaryVariant"
+            android:textStyle="bold"
+            />
+
+
+
+        <RatingBar
+            android:id="@+id/phoneRatingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="4.5"
+            android:progressTint="@color/golden"
+            app:layout_constraintTop_toBottomOf="@+id/phone_name"
+            app:layout_constraintStart_toStartOf="parent"
+           android:layout_marginTop="4dp"
+            android:layout_marginStart="38dp"
+            />
+
+        <TableLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phoneRatingBar"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"
+            app:tabMaxWidth="10dp"/>
+<!--            app:tabBackground="@drawable/tab_selector"-->
+
+
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/apply_filters_button"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:clickable="true"
+            android:text="@string/done"
+            android:gravity="center"
+            style="@style/PeachButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:backgroundTint="?colorSecondary"
+            app:cardCornerRadius="10dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_add_to_cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/add_to_cart"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="45dp"
+                    android:textStyle="bold"
+                    android:textColor="?colorOnSecondary"
+                    />
+
+                <TextView
+                    android:id="@+id/price_for_cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/mock_price"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textStyle="bold"
+                    android:textColor="?colorOnSecondary"
+                    android:layout_marginEnd="45dp"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

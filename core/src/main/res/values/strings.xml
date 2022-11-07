@@ -16,7 +16,7 @@
     <string name="best_sellers">Best Sellers</string>
     <string name="see_more">see more</string>
     <string name="buy_now"><u>Buy now!</u></string>
-    <string name="hot_sales_mock_title"><u>Some phone</u></string>
+    <string name="hot_sales_mock_title">Some phone</string>
     <string name="hot_sales_mock_subtitle"><u>Per aspera ad astra</u></string>
     <string name="is_new">New</string>
     <string name="bestseller_mock_title">Samsung Galaxy</string>
@@ -29,5 +29,6 @@
     <string name="price">Price</string>
     <string name="size">Size</string>
     <string name="details">Product Details</string>
+    <string name="add_to_cart">Add to Cart</string>
 
 </resources>

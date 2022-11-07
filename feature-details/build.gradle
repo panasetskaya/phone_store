@@ -44,6 +44,7 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.42'
 
     implementation 'com.google.android.material:material:1.7.0'
+//    implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01' //possibly not needed??
 
     implementation project(':core')
     implementation project(':feature-cart')
