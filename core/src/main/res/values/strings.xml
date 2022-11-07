@@ -30,5 +30,9 @@
     <string name="size">Size</string>
     <string name="details">Product Details</string>
     <string name="add_to_cart">Add to Cart</string>
+    <string name="shop">Shop</string>
+    <string name="tab_details">Details</string>
+    <string name="features">Features</string>
+    <string name="select_color">Select color and capacity</string>
 
 </resources>
