@@ -4,9 +4,11 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.panasetskaia.core.data.models.PhoneDbModel
 
 @Database(entities = [PhoneDbModel::class], version = 1, exportSchema = false)
+@TypeConverters(CartConverters::class)
 abstract class CartDatabase : RoomDatabase() {
 
     abstract fun cartDao(): CartDao
