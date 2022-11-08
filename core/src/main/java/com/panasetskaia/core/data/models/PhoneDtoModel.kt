@@ -3,8 +3,8 @@ package com.panasetskaia.core.data.models
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class PhoneDataModel(
-    @SerializedName("title")
+data class PhoneDtoModel(
+    @SerializedName("id")
     @Expose
     val id: String? = null,
 
@@ -38,7 +38,7 @@ data class PhoneDataModel(
 
     @SerializedName("rating")
     @Expose
-    val rating: Int? = null,
+    val rating: Float? = null,
 
     @SerializedName("sd")
     @Expose
@@ -46,5 +46,9 @@ data class PhoneDataModel(
 
     @SerializedName("ssd")
     @Expose
-    val ssd: String? = null
+    val ssd: String? = null,
+
+    @SerializedName("title")
+    @Expose
+    val title: String? = null
 )

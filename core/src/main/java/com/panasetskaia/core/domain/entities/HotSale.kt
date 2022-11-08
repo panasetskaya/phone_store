@@ -5,6 +5,6 @@ data class HotSale(
     val isNew: Boolean? = false,
     val title: String? = null,
     val subtitle: String? = null,
-    val pic_url: String? = null,
+    val picUrl: String? = null,
     val isBuy: Boolean? = false
 )

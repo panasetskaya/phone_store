@@ -22,7 +22,7 @@ data class HotSaleDataModel (
 
     @SerializedName("picture")
     @Expose
-    val pic_url: String? = null,
+    val picUrl: String? = null,
 
     @SerializedName("is_buy")
     @Expose

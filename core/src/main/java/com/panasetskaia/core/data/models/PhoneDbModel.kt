@@ -1,6 +1,11 @@
-package com.panasetskaia.core.domain.entities
+package com.panasetskaia.core.data.models
 
-data class Phone(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class PhoneDbModel (
+    @PrimaryKey(autoGenerate = true)
     val id: String? = null,
     val isFavorite: Boolean? = false,
     val CPU: String? = null,
