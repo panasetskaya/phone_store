@@ -10,7 +10,7 @@ data class BestSellerDtoModel (
 
     @SerializedName("is_favourites")
     @Expose
-    val isNew: Boolean? = false,
+    val isFav: Boolean = false,
 
     @SerializedName("title")
     @Expose

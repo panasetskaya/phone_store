@@ -13,7 +13,7 @@ class PhoneMapper {
     fun mapBestSellerDataModelToEntity(bestSellerDtoModel: BestSellerDtoModel): BestSeller {
         return BestSeller(
             bestSellerDtoModel.id,
-            bestSellerDtoModel.isNew,
+            bestSellerDtoModel.isFav,
             bestSellerDtoModel.title,
             bestSellerDtoModel.picUrl,
             bestSellerDtoModel.noDiscountPrice,

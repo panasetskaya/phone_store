@@ -1,4 +1,4 @@
-package com.panasetskaia.phonestore.ui
+package com.panasetskaia.phonestore.presentation.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

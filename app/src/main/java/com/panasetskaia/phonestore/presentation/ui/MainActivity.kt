@@ -1,4 +1,4 @@
-package com.panasetskaia.phonestore.ui
+package com.panasetskaia.phonestore.presentation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
