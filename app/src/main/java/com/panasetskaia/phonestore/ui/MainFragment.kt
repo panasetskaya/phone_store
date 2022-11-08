@@ -17,9 +17,9 @@ import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
 
-    lateinit var closeDialog: ImageView
-    lateinit var applyFilters: Button
-    lateinit var bottomSheetDialog: BottomSheetDialog
+    private lateinit var closeDialog: ImageView
+    private lateinit var applyFilters: Button
+    private lateinit var bottomSheetDialog: BottomSheetDialog
     lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
@@ -48,8 +48,13 @@ class MainFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.getPhone().collectLatest {
-                        Toast.makeText(this@MainFragment.requireContext(), it.toString(), Toast.LENGTH_LONG).show()
+                    viewModel.getHotSales().collectLatest {
+//                        Toast.makeText(this@MainFragment.requireContext(), it.toString(), Toast.LENGTH_LONG).show()
+                    }
+                }
+                launch {
+                    viewModel.getBestSellers().collectLatest {
+//                        Toast.makeText(this@MainFragment.requireContext(), it.toString(), Toast.LENGTH_LONG).show()
                     }
                 }
             }

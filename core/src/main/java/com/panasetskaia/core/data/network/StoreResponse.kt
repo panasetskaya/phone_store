@@ -8,9 +8,9 @@ import com.panasetskaia.core.data.models.HotSaleDataModel
 data class StoreResponse(
     @SerializedName("home_store")
     @Expose
-    val hotSales: ArrayList<HotSaleDataModel>? = null,
+    val hotSales: ArrayList<HotSaleDataModel>,
 
     @SerializedName("best_seller")
     @Expose
-    val bestSellers: ArrayList<BestSellerDataModel>? = null
+    val bestSellers: ArrayList<BestSellerDataModel>
 )
