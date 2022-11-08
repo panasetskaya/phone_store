@@ -33,8 +33,9 @@ class PhoneMapper {
     }
 
     fun mapPhoneDtoModelToEntity(phoneDtoModel: PhoneDtoModel): Phone {
+        val id = phoneDtoModel.id?.toInt() ?: 0
         return Phone(
-            phoneDtoModel.id,
+            id,
             phoneDtoModel.isFavorite,
             phoneDtoModel.CPU,
             phoneDtoModel.camera,
@@ -51,6 +52,24 @@ class PhoneMapper {
 
     fun mapPhoneToDbModel(phone: Phone): PhoneDbModel {
         return PhoneDbModel(
+            phone.id,
+            phone.isFavorite,
+            phone.CPU,
+            phone.camera,
+            phone.capacities,
+            phone.colors,
+            phone.images,
+            phone.price,
+            phone.rating,
+            phone.sd,
+            phone.ssd,
+            phone.title,
+            phone.quantity
+        )
+    }
+
+    fun mapDbModelToPhone(phone: PhoneDbModel): Phone {
+        return Phone(
             phone.id,
             phone.isFavorite,
             phone.CPU,

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class PhoneDbModel (
     @PrimaryKey(autoGenerate = true)
-    val id: String? = null,
+    val id: Int,
     val isFavorite: Boolean? = false,
     val CPU: String? = null,
     val camera: String? = null,

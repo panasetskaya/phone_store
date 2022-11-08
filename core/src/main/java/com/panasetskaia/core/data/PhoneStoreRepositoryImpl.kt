@@ -1,5 +1,7 @@
 package com.panasetskaia.core.data
 
+import android.app.Application
+import com.panasetskaia.core.data.database.CartDatabase
 import com.panasetskaia.core.data.network.ApiFactory
 import com.panasetskaia.core.domain.PhoneStoreRepository
 import com.panasetskaia.core.domain.entities.BestSeller
@@ -7,11 +9,13 @@ import com.panasetskaia.core.domain.entities.HotSale
 import com.panasetskaia.core.domain.entities.Phone
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
-class PhoneStoreRepositoryImpl: PhoneStoreRepository {
+class PhoneStoreRepositoryImpl(application: Application): PhoneStoreRepository {
 
     private val apiService = ApiFactory.apiService
     private val mapper = PhoneMapper()
+    private val db = CartDatabase.getInstance(application)
 
     override suspend fun getSinglePhone(): Flow<Phone> = flow {
         val phoneDto = apiService.getSinglePhone()
@@ -41,15 +45,23 @@ class PhoneStoreRepositoryImpl: PhoneStoreRepository {
     }
 
     override suspend fun addToCart(phone: Phone) {
-        TODO("Not yet implemented")
+        val dbModel = mapper.mapPhoneToDbModel(phone)
+        db.cartDao().addToCart(dbModel)
     }
 
     override suspend fun deleteFromCart(phone: Phone) {
-        TODO("Not yet implemented")
+        val dbModel = mapper.mapPhoneToDbModel(phone)
+        db.cartDao().deleteFromCart(dbModel.id)
     }
 
     override suspend fun getCart(): Flow<List<Phone>> {
-        TODO("Not yet implemented")
+        return db.cartDao().getAllCart().map {
+            val list = mutableListOf<Phone>()
+            for (i in it) {
+                list.add(mapper.mapDbModelToPhone(i))
+            }
+            list
+        }
     }
 
 }

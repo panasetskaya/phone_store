@@ -1,7 +1,7 @@
 package com.panasetskaia.core.domain.entities
 
 data class Phone(
-    val id: String? = null,
+    val id: Int = 0,
     val isFavorite: Boolean? = false,
     val CPU: String? = null,
     val camera: String? = null,

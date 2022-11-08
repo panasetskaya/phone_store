@@ -1,5 +1,7 @@
 package com.panasetskaia.phonestore.ui
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.panasetskaia.core.data.PhoneStoreRepositoryImpl
@@ -15,9 +17,9 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.launch
 
-class MainViewModel: ViewModel() {
+class MainViewModel(application: Application): AndroidViewModel(application) {
 
-    private val repo = PhoneStoreRepositoryImpl()
+    private val repo = PhoneStoreRepositoryImpl(application)
     private val getAPhone = GetSinglePhoneUseCase(repo)
     private val getHots = GetHotSalesUseCase(repo)
     private val getBests = GetBestSellersUseCase(repo)
