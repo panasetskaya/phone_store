@@ -19,12 +19,6 @@ class MainViewModel: ViewModel() {
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    init {
-        viewModelScope.launch {
-            _phoneFlow.emitAll(getAPhone())
-        }
-    }
-
     fun getPhone(): SharedFlow<Phone> {
         viewModelScope.launch {
             _phoneFlow.emitAll(getAPhone())
