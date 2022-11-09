@@ -9,7 +9,7 @@
         <item
             android:gravity="center"
             android:drawable="@drawable/books_ic_selected"
-            android:width="22dp"
-            android:height="27dp"
+            android:width="18dp"
+            android:height="24dp"
             />
 </layer-list>

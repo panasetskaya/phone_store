@@ -105,6 +105,34 @@ class MainFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+        binding.mainBottomToolbar.root.setOnNavigationItemSelectedListener{
+            when (it.itemId) {
+                com.panasetskaia.core.R.id.to_cart -> {
+                    Toast.makeText(
+                        this@MainFragment.requireContext(),
+                        "Go to your cart",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    true
+                }
+                com.panasetskaia.core.R.id.to_account -> {
+                    Toast.makeText(
+                        this@MainFragment.requireContext(),
+                        "Go to your account",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    true
+                } else -> {
+                Toast.makeText(
+                    this@MainFragment.requireContext(),
+                    "Go to your favourites",
+                    Toast.LENGTH_SHORT
+                ).show()
+                    true
+                }
+            }
+        }
+
 
     }
 
