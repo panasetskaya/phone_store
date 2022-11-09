@@ -78,8 +78,8 @@
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/radioPhones"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@android:color/transparent"
             android:background="@null"
@@ -92,8 +92,8 @@
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/radioComputer"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@android:color/transparent"
             android:background="@null"
@@ -105,8 +105,8 @@
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/radioHealth"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@android:color/transparent"
             android:background="@null"
@@ -177,7 +177,7 @@
         android:id="@+id/ti_search"
         android:layout_width="0dp"
         android:layout_height="34dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintStart_toStartOf="parent"
