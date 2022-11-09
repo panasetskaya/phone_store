@@ -59,6 +59,16 @@
         android:paddingLeft="0dp"
         android:paddingRight="0dp"/>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="180dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/to_cart_button"
+        app:layout_constraintBottom_toTopOf="@id/guidelineHalf"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHalf"
         android:layout_width="wrap_content"

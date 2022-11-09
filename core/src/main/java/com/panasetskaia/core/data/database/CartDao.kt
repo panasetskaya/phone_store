@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 @TypeConverters(CartConverters::class)
-interface CartDao {
+internal interface CartDao {
 
     @Query("SELECT * FROM phonedbmodel")
     fun getAllCart(): Flow<List<PhoneDbModel>>

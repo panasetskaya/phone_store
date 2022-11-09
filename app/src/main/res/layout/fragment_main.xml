@@ -131,50 +131,6 @@
             android:textSize="12sp" />
     </RadioGroup>
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/categories"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/select_cat_tv"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:gravity="center"-->
-<!--        android:layout_marginTop="24dp"-->
-<!--        >-->
-
-<!--        <include layout="@layout/phone_category_layout"-->
-<!--            android:id="@+id/phone_category"-->
-<!--            android:clickable="true"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--          />-->
-
-<!--        <include layout="@layout/computer_category_layout"-->
-<!--            android:id="@+id/computer_category"-->
-<!--            android:clickable="true"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            />-->
-
-<!--        <include layout="@layout/health_category_layout"-->
-<!--            android:id="@+id/health_category"-->
-<!--            android:clickable="true"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"/>-->
-
-<!--        <include layout="@layout/books_category_layout"-->
-<!--            android:id="@+id/books_category"-->
-<!--            android:clickable="true"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"/>-->
-
-<!--    </LinearLayout>-->
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ti_search"
         android:layout_width="0dp"

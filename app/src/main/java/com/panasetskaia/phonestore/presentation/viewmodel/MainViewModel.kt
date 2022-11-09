@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+internal class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repo = PhoneStoreRepositoryImpl(application)
     private val getHots = GetHotSalesUseCase(repo)

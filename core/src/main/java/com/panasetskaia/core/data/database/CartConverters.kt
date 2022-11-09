@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class CartConverters {
+internal class CartConverters {
 
     @TypeConverter
     fun fromList(value: List<String>): String {

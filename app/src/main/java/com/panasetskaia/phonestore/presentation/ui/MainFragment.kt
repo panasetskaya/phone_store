@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.panasetskaia.core.domain.entities.Status
+import com.panasetskaia.feature_details.ui.DetailsFragment
 import com.panasetskaia.phonestore.R
 import com.panasetskaia.phonestore.databinding.FragmentMainBinding
 import com.panasetskaia.phonestore.presentation.adapters.BestSellersListAdapter
@@ -37,7 +38,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -58,11 +59,8 @@ class MainFragment : Fragment() {
         with(binding.recyclerViewBestSellers) {
             adapter = bestSellersListAdapter
             bestSellersListAdapter.onItemClickListener = {
-                Toast.makeText(
-                    this@MainFragment.requireContext(),
-                    "Will go to Details",
-                    Toast.LENGTH_LONG
-                ).show()
+                parentFragmentManager.popBackStack()
+                replaceWithThisFragment(DetailsFragment::class.java, null)
             }
         }
         hotSalesListAdapter = HotSalesListAdapter()
@@ -71,11 +69,8 @@ class MainFragment : Fragment() {
         with(binding.recyclerViewHotSales) {
             adapter = hotSalesListAdapter
             hotSalesListAdapter.onItemClickListener = {
-                Toast.makeText(
-                    this@MainFragment.requireContext(),
-                    "Will go to Details",
-                    Toast.LENGTH_LONG
-                ).show()
+                parentFragmentManager.popBackStack()
+                replaceWithThisFragment(DetailsFragment::class.java, null)
             }
         }
     }
@@ -187,7 +182,8 @@ class MainFragment : Fragment() {
         }
     }
 
-    //todo: переделать на биндинг!
+    //todo: значок с количеством товаров в корзине
+    //todo: переход на фрагменты Details, Cart
 
     private fun showBottomSheetDialog() {
         val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet_dialog_layout, null)
@@ -220,5 +216,14 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    private fun replaceWithThisFragment(fragment: Class<out Fragment>, args: Bundle?) {
+        parentFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .replace(R.id.fcvMain, fragment, args)
+            .addToBackStack(null)
+            .commit()
     }
 }

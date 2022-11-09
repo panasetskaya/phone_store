@@ -9,7 +9,7 @@ import com.panasetskaia.core.data.models.PhoneDbModel
 
 @Database(entities = [PhoneDbModel::class], version = 1, exportSchema = false)
 @TypeConverters(CartConverters::class)
-abstract class CartDatabase : RoomDatabase() {
+internal abstract class CartDatabase : RoomDatabase() {
 
     abstract fun cartDao(): CartDao
 

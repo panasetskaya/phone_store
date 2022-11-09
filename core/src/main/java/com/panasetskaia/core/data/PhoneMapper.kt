@@ -8,7 +8,7 @@ import com.panasetskaia.core.domain.entities.BestSeller
 import com.panasetskaia.core.domain.entities.HotSale
 import com.panasetskaia.core.domain.entities.Phone
 
-class PhoneMapper {
+internal class PhoneMapper {
 
     fun mapBestSellerDataModelToEntity(bestSellerDtoModel: BestSellerDtoModel): BestSeller {
         return BestSeller(
