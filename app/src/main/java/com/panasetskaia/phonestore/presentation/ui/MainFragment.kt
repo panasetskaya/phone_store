@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.phonestore.R
 import com.panasetskaia.phonestore.databinding.FragmentMainBinding
 import com.panasetskaia.phonestore.presentation.adapters.BestSellersListAdapter
@@ -90,20 +91,53 @@ class MainFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.getHotSales().collectLatest {
-                        hotSalesListAdapter.submitList(it)
+                    viewModel.hotSalesStateFlow.collectLatest {
+                        when (it.status) {
+                            Status.LOADING -> {
+                                binding.progressBarRVHotSales.visibility = View.VISIBLE
+                            }
+                            Status.SUCCESS -> {
+                                binding.progressBarRVHotSales.visibility = View.GONE
+                                hotSalesListAdapter.submitList(it.data)
+                            }
+                            else -> {
+                                binding.progressBarRVHotSales.visibility = View.GONE
+                                Toast.makeText(
+                                    this@MainFragment.requireContext(),
+                                    "Cannot load: ${it.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
                     }
+
                 }
                 launch {
-                    viewModel.getBestSellers().collectLatest {
-                        bestSellersListAdapter.submitList(it)
+                    viewModel.bestSellersStateFlow.collectLatest {
+                        when (it.status) {
+                            Status.LOADING -> {
+                                binding.progressBarRVBestSellers.visibility = View.VISIBLE
+                            }
+                            Status.SUCCESS -> {
+                                binding.progressBarRVBestSellers.visibility = View.GONE
+                                bestSellersListAdapter.submitList(it.data)
+                            }
+                            else -> {
+                                binding.progressBarRVBestSellers.visibility = View.GONE
+                                Toast.makeText(
+                                    this@MainFragment.requireContext(),
+                                    "Cannot load: ${it.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
                     }
+
                 }
             }
         }
     }
 
-    //todo: сделать progressBar для загрузки данных!!
     //todo: переделать на биндинг!
 
     private fun showBottomSheetDialog() {

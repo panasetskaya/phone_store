@@ -259,10 +259,25 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hot_sales_tv"
                 tools:listitem="@layout/hot_sales_card" />
+
+            <ProgressBar
+                android:id="@+id/progressBarRVHotSales"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:padding="180dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hot_sales_tv"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/upper_rv_barrier"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="progressBarRVHotSales, recyclerViewHotSales"/>
 
             <TextView
                 android:id="@+id/best_seller_tv"
@@ -275,7 +290,7 @@
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerViewHotSales" />
+                app:layout_constraintTop_toBottomOf="@+id/upper_rv_barrier" />
 
             <TextView
                 android:id="@+id/see_all_best_sellers_tv"
@@ -301,6 +316,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/best_seller_tv"
                 app:spanCount="2"
                 tools:listitem="@layout/best_seller_card" />
+
+            <ProgressBar
+                android:id="@+id/progressBarRVBestSellers"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:padding="180dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/best_seller_tv"
+                app:layout_constraintStart_toStartOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

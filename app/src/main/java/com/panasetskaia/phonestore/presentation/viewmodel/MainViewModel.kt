@@ -6,56 +6,63 @@ import androidx.lifecycle.viewModelScope
 import com.panasetskaia.core.data.PhoneStoreRepositoryImpl
 import com.panasetskaia.core.domain.entities.BestSeller
 import com.panasetskaia.core.domain.entities.HotSale
-import com.panasetskaia.core.domain.entities.Phone
+import com.panasetskaia.core.domain.entities.NetworkResult
+import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.core.domain.usecases.GetBestSellersUseCase
 import com.panasetskaia.core.domain.usecases.GetHotSalesUseCase
-import com.panasetskaia.core.domain.usecases.GetSinglePhoneUseCase
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
-class MainViewModel(application: Application): AndroidViewModel(application) {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repo = PhoneStoreRepositoryImpl(application)
-    private val getAPhone = GetSinglePhoneUseCase(repo)
     private val getHots = GetHotSalesUseCase(repo)
     private val getBests = GetBestSellersUseCase(repo)
 
-    private val _phoneFlow = MutableSharedFlow<Phone>(
-        replay = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    private val _hotSalesStateFlow = MutableStateFlow(
+        NetworkResult(Status.LOADING, listOf<HotSale>(), "")
     )
+    val hotSalesStateFlow: StateFlow<NetworkResult<List<HotSale>>>
+        get() = _hotSalesStateFlow
 
-    private val _hotSalesFlow = MutableSharedFlow<List<HotSale>>(
-        replay = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    private val _bestSellersStateFlow = MutableStateFlow(
+        NetworkResult(Status.LOADING, listOf<BestSeller>(), "")
     )
+    val bestSellersStateFlow: StateFlow<NetworkResult<List<BestSeller>>>
+        get() = _bestSellersStateFlow
 
-    private val _bestSellersFlow = MutableSharedFlow<List<BestSeller>>(
-        replay = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
-
-    fun getPhone(): SharedFlow<Phone> {
-        viewModelScope.launch {
-            _phoneFlow.emitAll(getAPhone())
-        }
-        return _phoneFlow
+    init {
+        getNewHotSales()
+        getNewBestSellers()
     }
 
-    fun getHotSales(): SharedFlow<List<HotSale>> {
+    fun getNewHotSales() {
+        _hotSalesStateFlow.value = NetworkResult.loading()
         viewModelScope.launch {
-            _hotSalesFlow.emitAll(getHots())
+            getHots()
+                .catch {
+                    _hotSalesStateFlow.value = NetworkResult.error(it.message.toString())
+                }
+                .collect {
+                    _hotSalesStateFlow.value = NetworkResult.success(it.data)
+                }
         }
-        return _hotSalesFlow
     }
 
-    fun getBestSellers(): SharedFlow<List<BestSeller>> {
+    fun getNewBestSellers() {
+        _bestSellersStateFlow.value = NetworkResult.loading()
         viewModelScope.launch {
-            _bestSellersFlow.emitAll(getBests())
+            getBests()
+                .catch {
+                    _bestSellersStateFlow.value = NetworkResult.error(it.message.toString())
+                }
+                .collect {
+                    _bestSellersStateFlow.value = NetworkResult.success(it.data)
+                }
         }
-        return _bestSellersFlow
     }
 }
+
+
