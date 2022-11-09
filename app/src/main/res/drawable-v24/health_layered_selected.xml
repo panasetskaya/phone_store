@@ -9,7 +9,7 @@
     <item
         android:gravity="center"
         android:drawable="@drawable/health_ic_selected"
-        android:width="33dp"
-        android:height="30dp"
+        android:width="24dp"
+        android:height="22dp"
         />
 </layer-list>

@@ -9,7 +9,7 @@
     <item
         android:gravity="center"
         android:drawable="@drawable/computer_ic"
-        android:width="30dp"
-        android:height="30dp"
+        android:width="24dp"
+        android:height="24dp"
         />
 </layer-list>
