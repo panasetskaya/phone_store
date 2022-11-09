@@ -15,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.panasetskaia.phonestore.R
 import com.panasetskaia.phonestore.databinding.FragmentMainBinding
 import com.panasetskaia.phonestore.presentation.adapters.BestSellersListAdapter
+import com.panasetskaia.phonestore.presentation.adapters.HotSalesListAdapter
 import com.panasetskaia.phonestore.presentation.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,7 +26,8 @@ class MainFragment : Fragment() {
     private lateinit var applyFilters: Button
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private lateinit var viewModel: MainViewModel
-    private lateinit var listAdapter: BestSellersListAdapter
+    private lateinit var bestSellersListAdapter: BestSellersListAdapter
+    private lateinit var hotSalesListAdapter: HotSalesListAdapter
 
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding
@@ -49,12 +51,25 @@ class MainFragment : Fragment() {
     }
 
     private fun setupRecyclers() {
-        listAdapter = BestSellersListAdapter()
-        listAdapter.stateRestorationPolicy =
+        bestSellersListAdapter = BestSellersListAdapter()
+        bestSellersListAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         with(binding.recyclerViewBestSellers) {
-            adapter = listAdapter
-            listAdapter.onItemClickListener = {
+            adapter = bestSellersListAdapter
+            bestSellersListAdapter.onItemClickListener = {
+                Toast.makeText(
+                    this@MainFragment.requireContext(),
+                    "Will go to Details",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+        hotSalesListAdapter = HotSalesListAdapter()
+        hotSalesListAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        with(binding.recyclerViewHotSales) {
+            adapter = hotSalesListAdapter
+            hotSalesListAdapter.onItemClickListener = {
                 Toast.makeText(
                     this@MainFragment.requireContext(),
                     "Will go to Details",
@@ -68,6 +83,9 @@ class MainFragment : Fragment() {
         binding.filterButton.setOnClickListener {
             showBottomSheetDialog()
         }
+        binding.booksCategory.root.setOnClickListener {
+
+        }
     }
 
     private fun collectFlows() {
@@ -75,19 +93,21 @@ class MainFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.getHotSales().collectLatest {
-//                        Toast.makeText(this@MainFragment.requireContext(), it.toString(), Toast.LENGTH_LONG).show()
+                        hotSalesListAdapter.submitList(it)
                     }
                 }
                 launch {
                     viewModel.getBestSellers().collectLatest {
-                        listAdapter.submitList(it)
+                        bestSellersListAdapter.submitList(it)
                     }
                 }
             }
         }
     }
 
+    //todo: сделать progressBar для загрузки данных!!
     //todo: переделать на биндинг!
+
     private fun showBottomSheetDialog() {
         val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet_dialog_layout, null)
         bottomSheetDialog.setContentView(bottomSheetView)

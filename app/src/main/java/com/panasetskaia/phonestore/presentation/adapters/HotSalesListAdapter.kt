@@ -1,88 +1,67 @@
 package com.panasetskaia.phonestore.presentation.adapters
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.panasetskaia.core.domain.entities.HotSale
+import com.panasetskaia.phonestore.databinding.HotSalesCardBinding
 
-class HotSalesListAdapter {
 
-    class HotSalesViewHolder(val binding: ViewBinding) :
+class HotSalesListAdapter :
+    ListAdapter<HotSale, HotSalesListAdapter.HotSalesViewHolder>(HotSalesDiffUtil()) {
+
+    var onItemClickListener: ((HotSale) -> Unit)? = null
+
+    class HotSalesViewHolder(val binding: HotSalesCardBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-}
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotSalesViewHolder {
+        val binding = HotSalesCardBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return HotSalesViewHolder(binding)
+    }
 
-//class DictionaryListAdapter :
-//    ListAdapter<ChineseCharacter, ChineseCharViewHolder>(ChineseCharDiffUtilCallback()) {
-//
-//    var onCharacterItemClickListener: ((ChineseCharacter) -> Unit)? = null
-//    var onCharacterItemLongClickListener: ((ChineseCharacter) -> Unit)? = null
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChineseCharViewHolder {
-//        val binding = when (viewType) {
-//            CHOSEN -> CharacterItemChosenBinding.inflate(
-//                LayoutInflater.from(parent.context),
-//                parent,
-//                false
-//            )
-//            NOT_CHOSEN -> CharacterItemNotChosenBinding.inflate(
-//                LayoutInflater.from(parent.context),
-//                parent,
-//                false
-//            )
-//            else -> throw RuntimeException("No such viewType: $viewType!")
-//        }
-//        return ChineseCharViewHolder(binding)
-//    }
-//
-//    override fun onBindViewHolder(holder: ChineseCharViewHolder, position: Int) {
-//        val item = getItem(position)
-//        val binding = holder.binding
-//        binding.root.setOnLongClickListener {
-//            onCharacterItemLongClickListener?.invoke(item)
-//            true
-//        }
-//        binding.root.setOnClickListener {
-//            onCharacterItemClickListener?.invoke(item)
-//            true
-//        }
-//
-//        when (binding) {
-//            is CharacterItemChosenBinding -> {
-//                with(binding) {
-//                    tvCharacterChinese.text = item.character
-//                    tvPinyin.text = item.pinyin
-//                    val translationCut =
-//                        if (item.translation.length <= 21) item.translation else item.translation.substring(
-//                            0..21
-//                        ) + "..."
-//                    tvTranslation.text = translationCut
-//                }
-//            }
-//            is CharacterItemNotChosenBinding -> {
-//                with(binding) {
-//                    tvCharacterChinese.text = item.character
-//                    tvPinyin.text = item.pinyin
-//                    val translationCut =
-//                        if (item.translation.length <= 21) item.translation else item.translation.substring(
-//                            0..21
-//                        ) + "..."
-//                    tvTranslation.text = translationCut
-//                }
-//            }
-//        }
-//    }
-//
-//    override fun getItemViewType(position: Int): Int {
-//        val item = getItem(position)
-//        return if (item.isChosen) CHOSEN
-//        else NOT_CHOSEN
-//    }
-//
-//    companion object {
-//        const val CHOSEN = 1
-//        const val NOT_CHOSEN = 0
-//        const val MAX_POOL_SIZE = 15
-//    }
-//}
+    override fun onBindViewHolder(holder: HotSalesViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.binding.root.setOnClickListener {
+            onItemClickListener?.invoke(item)
+            true
+        }
+        with(holder.binding) {
+            Glide.with(root.context)
+                .load(item.picUrl)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: com.bumptech.glide.request.target.Target<Drawable>?, p3: Boolean): Boolean {
+                        hotSalesProgressBar.visibility = View.GONE
+                        return false
+                    }
+                    override fun onResourceReady(p0: Drawable?, p1: Any?, p2: com.bumptech.glide.request.target.Target<Drawable>?, p3: DataSource?, p4: Boolean): Boolean {
+                        hotSalesProgressBar.visibility = View.GONE
+                        return false
+                    }
+                })
+                .into(hotSaleImage)
+            hotSaleTitle.text = item.title
+            hotSaleSubtitle.text = item.subtitle
+            if (item.isNew == true) {
+                isNew.visibility = View.VISIBLE
+            } else {
+                isNew.visibility = View.GONE
+            }
+            buyNowButton.setOnClickListener {
+                onItemClickListener?.invoke(item)
+                true
+            }
+        }
+    }
+}

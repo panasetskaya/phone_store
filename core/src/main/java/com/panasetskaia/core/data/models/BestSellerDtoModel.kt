@@ -8,9 +8,9 @@ data class BestSellerDtoModel (
     @Expose
     val id: String,
 
-    @SerializedName("is_favourites")
+    @SerializedName("is_favorites")
     @Expose
-    val isFav: Boolean = false,
+    val isFav: Boolean? = null,
 
     @SerializedName("title")
     @Expose
