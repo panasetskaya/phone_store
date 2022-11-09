@@ -84,6 +84,27 @@ class MainFragment : Fragment() {
         binding.filterButton.setOnClickListener {
             showBottomSheetDialog()
         }
+        binding.seeAllBestSellersTv.setOnClickListener {
+            Toast.makeText(
+                this@MainFragment.requireContext(),
+                "See more Best Sellers",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        binding.seeAllTv.setOnClickListener {
+            Toast.makeText(
+                this@MainFragment.requireContext(),
+                "View all categories",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        binding.seeAllHotSalesTv.setOnClickListener {
+            Toast.makeText(
+                this@MainFragment.requireContext(),
+                "See more Hot Sales",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
     }
 
