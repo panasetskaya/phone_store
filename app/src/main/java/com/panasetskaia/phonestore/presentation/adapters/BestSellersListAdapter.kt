@@ -46,7 +46,7 @@ class BestSellersListAdapter: ListAdapter<BestSeller, BestSellersListAdapter.Bes
                         return false
                     }
                 })
-                .placeholder(R.drawable.img)
+                .placeholder(com.panasetskaia.core.R.drawable.img)
                 .into(bestsellerImage)
             bestsellerActualPrice.text = item.discountPrice.toString() + "$"
             bestsellerOldPrice.text = item.noDiscountPrice.toString() + "$"

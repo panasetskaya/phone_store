@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import com.panasetskaia.core.data.models.BestSellerDtoModel
 import com.panasetskaia.core.data.models.HotSaleDtoModel
 
-data class StoreResponse(
+internal data class StoreResponse(
     @SerializedName("home_store")
     @Expose
     val hotSales: ArrayList<HotSaleDtoModel>,
