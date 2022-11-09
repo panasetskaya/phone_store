@@ -83,9 +83,7 @@ class MainFragment : Fragment() {
         binding.filterButton.setOnClickListener {
             showBottomSheetDialog()
         }
-        binding.booksCategory.root.setOnClickListener {
 
-        }
     }
 
     private fun collectFlows() {

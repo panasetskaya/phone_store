@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:gravity="center"
+            android:drawable="@drawable/circular_chosen"
+            android:height="60dp"
+            android:width="60dp"
+            />
+        <item
+            android:gravity="center"
+            android:drawable="@drawable/books_ic_selected"
+            android:width="25dp"
+            android:height="30dp"
+            />
+</layer-list>
