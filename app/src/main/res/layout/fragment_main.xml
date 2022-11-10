@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainFragment"
+    tools:context=".presentation.ui.MainFragment"
     android:background="?colorPrimary">
 
     <LinearLayout
@@ -65,59 +65,81 @@
         app:layout_constraintBottom_toBottomOf="@+id/select_cat_tv"
         android:layout_marginEnd="18dp"/>
 
-    <LinearLayout
-        android:id="@+id/categories"
+    <RadioGroup
+        android:id="@+id/categoriesRadioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/select_cat_tv"
-        android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="24dp"
-        >
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp">
 
-        <include layout="@layout/phone_category_layout"
-            android:id="@+id/phone_category"
-            android:clickable="true"
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radioPhones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:button="@android:color/transparent"
+            android:background="@null"
+            android:drawableTop="@drawable/phone_icon_selector"
+            android:gravity="center"
+            android:text="@string/phones"
+            android:textColor="@color/radio_text_selector"
+            android:textSize="12sp"
+            android:checked="true"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radioComputer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-          />
-
-        <include layout="@layout/computer_category_layout"
-            android:id="@+id/computer_category"
-            android:clickable="true"
             android:layout_weight="1"
+            android:button="@android:color/transparent"
+            android:background="@null"
+            android:drawableTop="@drawable/computer_icon_selector"
+            android:gravity="center"
+            android:text="@string/computer"
+            android:textColor="@color/radio_text_selector"
+            android:textSize="12sp" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radioHealth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
-
-        <include layout="@layout/health_category_layout"
-            android:id="@+id/health_category"
-            android:clickable="true"
+            android:layout_weight="1"
+            android:button="@android:color/transparent"
+            android:background="@null"
+            android:drawableTop="@drawable/health_icon_selector"
+            android:gravity="center"
+            android:text="@string/health"
+            android:textColor="@color/radio_text_selector"
+            android:textSize="12sp" />
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radioBooks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-        <include layout="@layout/books_category_layout"
-            android:id="@+id/books_category"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
+            android:layout_weight="1"
+            android:button="@android:color/transparent"
+            android:background="@null"
+            android:drawableTop="@drawable/book_icon_selector"
+            android:gravity="center"
+            android:text="@string/books"
+            android:textColor="@color/radio_text_selector"
+            android:textSize="12sp" />
+    </RadioGroup>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ti_search"
         android:layout_width="0dp"
         android:layout_height="34dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categories"
+        app:layout_constraintTop_toBottomOf="@+id/categoriesRadioGroup"
         app:layout_constraintEnd_toStartOf="@+id/qr_search"
         app:hintTextColor="?colorPrimary"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -149,10 +171,10 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintBottom_toTopOf="@+id/main_bottom_toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_search">
 
@@ -193,10 +215,25 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hot_sales_tv"
                 tools:listitem="@layout/hot_sales_card" />
+
+            <ProgressBar
+                android:id="@+id/progressBarRVHotSales"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:padding="180dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hot_sales_tv"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/upper_rv_barrier"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="progressBarRVHotSales, recyclerViewHotSales"/>
 
             <TextView
                 android:id="@+id/best_seller_tv"
@@ -209,7 +246,7 @@
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerViewHotSales" />
+                app:layout_constraintTop_toBottomOf="@+id/upper_rv_barrier" />
 
             <TextView
                 android:id="@+id/see_all_best_sellers_tv"
@@ -235,6 +272,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/best_seller_tv"
                 app:spanCount="2"
                 tools:listitem="@layout/best_seller_card" />
+
+            <ProgressBar
+                android:id="@+id/progressBarRVBestSellers"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:padding="180dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/best_seller_tv"
+                app:layout_constraintStart_toStartOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,60 +1,153 @@
 package com.panasetskaia.feature_details.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
+import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.feature_details.R
+import com.panasetskaia.feature_details.adapters.HorizontalMarginItemDecoration
+import com.panasetskaia.feature_details.adapters.ParentCategoryPagerAdapter
+import com.panasetskaia.feature_details.adapters.PhoneImagesListAdapter
+import com.panasetskaia.feature_details.databinding.FragmentDetailsBinding
+import com.panasetskaia.feature_details.viewmodels.DetailsViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import java.lang.Math.abs
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var viewModel: DetailsViewModel
+    private lateinit var phoneImagesListAdapter: PhoneImagesListAdapter
+    private lateinit var categoryPagerAdapter: ParentCategoryPagerAdapter
+
+    private var _binding: FragmentDetailsBinding? = null
+    private val binding: FragmentDetailsBinding
+        get() = _binding ?: throw RuntimeException("FragmentDetailsBinding is null")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_details, container, false)
+    ): View {
+        _binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this)[DetailsViewModel::class.java]
+        collectFlows()
+        setupListeners()
+        setupImagePager()
+        setupFragmentPager()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setupImagePager() {
+        phoneImagesListAdapter = PhoneImagesListAdapter()
+        binding.viewPagerPhonePics.adapter = phoneImagesListAdapter
+        val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
+        val currentItemHorizontalMarginPx = resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+        val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
+        val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
+            page.translationX = -pageTranslationX * position
+            page.scaleY = 1 - (0.25f * abs(position))
+        }
+        binding.viewPagerPhonePics.setPageTransformer(pageTransformer)
+        val itemDecoration = HorizontalMarginItemDecoration(
+            this@DetailsFragment.requireContext(),
+            R.dimen.viewpager_current_item_horizontal_margin
+        )
+        binding.viewPagerPhonePics.addItemDecoration(itemDecoration)
+    }
+
+    private fun setupFragmentPager() {
+        categoryPagerAdapter = ParentCategoryPagerAdapter(this)
+        binding.viewPagerDetailCategories.adapter = categoryPagerAdapter
+        val tabTitles = resources.getStringArray(com.panasetskaia.core.R.array.tabs)
+        TabLayoutMediator(binding.tabLayoutDetailCategories, binding.viewPagerDetailCategories) { tab, position ->
+            tab.text = tabTitles[position]
+        }.attach()
+    }
+
+    private fun setupListeners() {
+        binding.goBackButton.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+        binding.toCartButton.setOnClickListener {
+//            replaceWithThisFragment(DetailsFragment::class.java, null)
+        }
+        binding.isFav.setOnClickListener {
+            binding.notFav.visibility = View.VISIBLE
+            binding.isFav.visibility = View.GONE
+        }
+        binding.notFav.setOnClickListener {
+            binding.notFav.visibility = View.GONE
+            binding.isFav.visibility = View.VISIBLE
+        }
+    }
+
+
+    private fun collectFlows() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.phoneStateFlow.collectLatest {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                            binding.bottomLayout.visibility = View.INVISIBLE
+                        }
+                        Status.SUCCESS -> {
+                            phoneImagesListAdapter.submitList(it.data?.images)
+                            with(binding) {
+                                bottomLayout.visibility = View.VISIBLE
+                                progressBar.visibility = View.GONE
+                                phoneName.text = it.data?.title
+                                phoneRatingBar.rating = it.data?.rating ?: 0f
+                                priceForCart.text = it.data?.price.toString() + "$"
+                                if (it.data?.isFavorite==true) {
+                                    notFav.visibility = View.GONE
+                                    isFav.visibility = View.VISIBLE
+                                } else {
+                                    notFav.visibility = View.VISIBLE
+                                    isFav.visibility = View.GONE
+                                }
+                            }
+                        }
+                        Status.ERROR -> {
+                            binding.progressBar.visibility = View.GONE
+                            //todo: удалить тест, когда починят АПИ
+                            viewModel.setTestingPhone()
+                            Toast.makeText(
+                                this@DetailsFragment.requireContext(),
+                                "Cannot load: ${it.message}. Setting a sample phone",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
                 }
             }
+        }
     }
+
+
+//    private fun replaceWithThisFragment(fragment: Class<out Fragment>, args: Bundle?) {
+//        parentFragmentManager.beginTransaction()
+//            .setReorderingAllowed(true)
+//            .replace(R.id.fcvMain, fragment, args)
+//            .addToBackStack(null)
+//            .commit()
+//    }
 }

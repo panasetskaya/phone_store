@@ -3,7 +3,7 @@ package com.panasetskaia.core.data.models
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class HotSaleDataModel (
+internal data class HotSaleDtoModel (
     @SerializedName("id")
     @Expose
     val id: String,

@@ -3,14 +3,14 @@ package com.panasetskaia.core.data.models
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class BestSellerDataModel (
+internal data class BestSellerDtoModel (
     @SerializedName("id")
     @Expose
     val id: String,
 
-    @SerializedName("is_favourites")
+    @SerializedName("is_favorites")
     @Expose
-    val isNew: Boolean? = false,
+    val isFav: Boolean? = null,
 
     @SerializedName("title")
     @Expose

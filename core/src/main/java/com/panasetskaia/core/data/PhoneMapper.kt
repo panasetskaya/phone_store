@@ -1,40 +1,41 @@
 package com.panasetskaia.core.data
 
-import com.panasetskaia.core.data.models.BestSellerDataModel
-import com.panasetskaia.core.data.models.HotSaleDataModel
+import com.panasetskaia.core.data.models.BestSellerDtoModel
+import com.panasetskaia.core.data.models.HotSaleDtoModel
 import com.panasetskaia.core.data.models.PhoneDbModel
 import com.panasetskaia.core.data.models.PhoneDtoModel
 import com.panasetskaia.core.domain.entities.BestSeller
 import com.panasetskaia.core.domain.entities.HotSale
 import com.panasetskaia.core.domain.entities.Phone
 
-class PhoneMapper {
+internal class PhoneMapper {
 
-    fun mapBestSellerDataModelToEntity(bestSellerDataModel: BestSellerDataModel): BestSeller {
+    fun mapBestSellerDataModelToEntity(bestSellerDtoModel: BestSellerDtoModel): BestSeller {
         return BestSeller(
-            bestSellerDataModel.id,
-            bestSellerDataModel.isNew,
-            bestSellerDataModel.title,
-            bestSellerDataModel.picUrl,
-            bestSellerDataModel.noDiscountPrice,
-            bestSellerDataModel.discountPrice
+            bestSellerDtoModel.id,
+            bestSellerDtoModel.isFav,
+            bestSellerDtoModel.title,
+            bestSellerDtoModel.picUrl,
+            bestSellerDtoModel.noDiscountPrice,
+            bestSellerDtoModel.discountPrice
         )
     }
 
-    fun mapHotSaleDataModelToEntity(hotSaleDataModel: HotSaleDataModel): HotSale {
+    fun mapHotSaleDataModelToEntity(hotSaleDtoModel: HotSaleDtoModel): HotSale {
         return HotSale(
-            hotSaleDataModel.id,
-            hotSaleDataModel.isNew,
-            hotSaleDataModel.title,
-            hotSaleDataModel.subtitle,
-            hotSaleDataModel.picUrl,
-            hotSaleDataModel.isBuy
+            hotSaleDtoModel.id,
+            hotSaleDtoModel.isNew,
+            hotSaleDtoModel.title,
+            hotSaleDtoModel.subtitle,
+            hotSaleDtoModel.picUrl,
+            hotSaleDtoModel.isBuy
         )
     }
 
     fun mapPhoneDtoModelToEntity(phoneDtoModel: PhoneDtoModel): Phone {
+        val id = phoneDtoModel.id?.toInt() ?: 0
         return Phone(
-            phoneDtoModel.id,
+            id,
             phoneDtoModel.isFavorite,
             phoneDtoModel.CPU,
             phoneDtoModel.camera,
@@ -63,8 +64,29 @@ class PhoneMapper {
             phone.sd,
             phone.ssd,
             phone.title,
-            phone.quantity
+            phone.quantity,
+            phone.chosenColor,
+            phone.chosenCapacity
         )
     }
 
+    fun mapDbModelToPhone(phone: PhoneDbModel): Phone {
+        return Phone(
+            phone.id,
+            phone.isFavorite,
+            phone.CPU,
+            phone.camera,
+            phone.capacities,
+            phone.colors,
+            phone.images,
+            phone.price,
+            phone.rating,
+            phone.sd,
+            phone.ssd,
+            phone.title,
+            phone.quantity,
+            phone.chosenColor,
+            phone.chosenCapacity
+        )
+    }
 }

@@ -35,7 +35,6 @@
             app:maxImageSize="15dp"
             app:backgroundTint="?colorOnSecondary"
             app:tint="?colorSecondary"
-            android:visibility="visible"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="10dp"
@@ -50,7 +49,6 @@
             app:maxImageSize="15dp"
             app:backgroundTint="?colorOnSecondary"
             app:tint="?colorSecondary"
-            android:visibility="invisible"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="10dp"
@@ -94,6 +92,15 @@
             android:text="@string/bestseller_mock_title"
             android:textColor="@color/dark_blue"
             android:textSize="11sp" />
+
+        <ProgressBar
+            android:id="@+id/bestsellerProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/bestseller_image"
+            app:layout_constraintEnd_toEndOf="@+id/bestseller_image"
+            app:layout_constraintTop_toTopOf="@+id/bestseller_image"
+            app:layout_constraintBottom_toBottomOf="@+id/bestseller_image"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
