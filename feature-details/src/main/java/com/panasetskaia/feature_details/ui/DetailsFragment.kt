@@ -116,7 +116,7 @@ class DetailsFragment : Fragment() {
                                 progressBar.visibility = View.GONE
                                 phoneName.text = it.data?.title
                                 phoneRatingBar.rating = it.data?.rating ?: 0f
-                                priceForCart.text = it.data?.price.toString()
+                                priceForCart.text = it.data?.price.toString() + "$"
                                 if (it.data?.isFavorite==true) {
                                     notFav.visibility = View.GONE
                                     isFav.visibility = View.VISIBLE
@@ -128,12 +128,12 @@ class DetailsFragment : Fragment() {
                         }
                         Status.ERROR -> {
                             binding.progressBar.visibility = View.GONE
-//                            binding.bottomLayout.visibility = View.INVISIBLE
-                            testing()
+                            //todo: удалить тест, когда починят АПИ
+                            viewModel.setTestingPhone()
                             Toast.makeText(
                                 this@DetailsFragment.requireContext(),
-                                "Cannot load: ${it.message}",
-                                Toast.LENGTH_SHORT
+                                "Cannot load: ${it.message}. Setting a sample phone",
+                                Toast.LENGTH_LONG
                             ).show()
                         }
                     }
@@ -142,11 +142,6 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun testing() {
-        binding.bottomLayout.visibility = View.VISIBLE
-        binding.phoneName.text = "Some Phone"
-        binding.phoneRatingBar.rating = 3.5f
-    }
 
 //    private fun replaceWithThisFragment(fragment: Class<out Fragment>, args: Bundle?) {
 //        parentFragmentManager.beginTransaction()

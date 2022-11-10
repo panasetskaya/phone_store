@@ -17,13 +17,8 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
     private val repo = PhoneStoreRepositoryImpl(application)
     private val getPhone = GetSinglePhoneUseCase(repo)
 
-    private val _chosenColorFlow = MutableStateFlow("")
-    val chosenColorFlow: StateFlow<String>
-        get() = _chosenColorFlow
-
-    private val _chosenCapacityFlow = MutableStateFlow("")
-    val chosenCapacityFlow: StateFlow<String>
-        get() = _chosenCapacityFlow
+    private var chosenColor: String? =null
+    private var chosenCapacity: String? =null
 
     private val _phoneStateFlow = MutableStateFlow(
         NetworkResult(Status.LOADING, Phone(), "")
@@ -46,8 +41,6 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
                         }
                         Status.SUCCESS -> {
                             _phoneStateFlow.value = NetworkResult.success(it.data)
-                            _chosenColorFlow.value = it.data?.colors?.get(0) ?: ""
-                            _chosenCapacityFlow.value = it.data?.capacities?.get(0) ?: ""
                         }
                         else -> {
                         }
@@ -57,10 +50,27 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun changeColor(color: String) {
-        _chosenColorFlow.value = color
+        chosenColor = color
     }
 
     fun changeCapacity(capacity: String) {
-        _chosenCapacityFlow.value = capacity
+        chosenCapacity = capacity
+    }
+
+    fun setTestingPhone() {
+        val phone = Phone(
+            images = listOf("https://www.notebookcheck-ru.com/uploads/tx_nbc2/OppoFindX2Pro.JPG",
+                "https://www.ixbt.com/img/n1/news/2020/1/6/oppo-find-x2-pro-live-images-71_large.jpg"),
+            title = "Gorgeous SmartPhone",
+            price = 2222,
+            rating = 4.3f,
+            camera = "mock camera",
+            CPU = "mock cpu",
+            sd = "mock sd",
+            ssd = "mock ssd",
+            capacities = listOf("256", "128", "133", "000"),
+            colors = listOf("#eb4034", "#e8b8b5", "#d6cd22")
+        )
+        _phoneStateFlow.value = NetworkResult(Status.SUCCESS, phone, null)
     }
 }

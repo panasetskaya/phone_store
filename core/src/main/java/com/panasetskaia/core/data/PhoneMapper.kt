@@ -64,7 +64,9 @@ internal class PhoneMapper {
             phone.sd,
             phone.ssd,
             phone.title,
-            phone.quantity
+            phone.quantity,
+            phone.chosenColor,
+            phone.chosenCapacity
         )
     }
 
@@ -82,7 +84,9 @@ internal class PhoneMapper {
             phone.sd,
             phone.ssd,
             phone.title,
-            phone.quantity
+            phone.quantity,
+            phone.chosenColor,
+            phone.chosenCapacity
         )
     }
 }

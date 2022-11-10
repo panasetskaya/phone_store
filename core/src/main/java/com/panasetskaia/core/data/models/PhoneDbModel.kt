@@ -23,5 +23,7 @@ internal data class PhoneDbModel (
     val sd: String? = null,
     val ssd: String? = null,
     val title: String? = null,
-    var quantity: Int = 0
+    var quantity: Int = 0,
+    var chosenColor: String? = colors?.get(0),
+    var chosenCapacity: String? = capacities?.get(0)
 )

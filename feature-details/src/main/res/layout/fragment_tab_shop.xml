@@ -111,32 +111,32 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewColors"
+    <RadioGroup
+        android:id="@+id/radioGroupColors"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:gravity="center"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertHalf"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_select_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/color_item" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewCapacities"
+    <RadioGroup
+        android:id="@+id/radioGroupCapacities"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:gravity="center"
         app:layout_constraintStart_toEndOf="@+id/guidelineVertHalf"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_select_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/capacity_item"
-        />
-
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
