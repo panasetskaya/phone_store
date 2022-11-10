@@ -11,9 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.feature_details.R
 import com.panasetskaia.feature_details.adapters.HorizontalMarginItemDecoration
+import com.panasetskaia.feature_details.adapters.ParentCategoryPagerAdapter
 import com.panasetskaia.feature_details.adapters.PhoneImagesListAdapter
 import com.panasetskaia.feature_details.databinding.FragmentDetailsBinding
 import com.panasetskaia.feature_details.viewmodels.DetailsViewModel
@@ -25,6 +27,7 @@ class DetailsFragment : Fragment() {
 
     private lateinit var viewModel: DetailsViewModel
     private lateinit var phoneImagesListAdapter: PhoneImagesListAdapter
+    private lateinit var categoryPagerAdapter: ParentCategoryPagerAdapter
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding: FragmentDetailsBinding
@@ -33,7 +36,7 @@ class DetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -42,7 +45,8 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[DetailsViewModel::class.java]
         collectFlows()
-        setupViewPagers()
+        setupImagePager()
+        setupFragmentPager()
     }
 
     override fun onDestroyView() {
@@ -50,7 +54,7 @@ class DetailsFragment : Fragment() {
         _binding = null
     }
 
-    private fun setupViewPagers() {
+    private fun setupImagePager() {
         phoneImagesListAdapter = PhoneImagesListAdapter()
         binding.viewPagerPhonePics.adapter = phoneImagesListAdapter
         val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
@@ -58,10 +62,7 @@ class DetailsFragment : Fragment() {
         val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
         val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
             page.translationX = -pageTranslationX * position
-            // Next line scales the item's height. You can remove it if you don't want this effect
             page.scaleY = 1 - (0.25f * abs(position))
-            // If you want a fading effect uncomment the next line:
-            // page.alpha = 0.25f + (1 - abs(position))
         }
         binding.viewPagerPhonePics.setPageTransformer(pageTransformer)
         val itemDecoration = HorizontalMarginItemDecoration(
@@ -69,7 +70,14 @@ class DetailsFragment : Fragment() {
             R.dimen.viewpager_current_item_horizontal_margin
         )
         binding.viewPagerPhonePics.addItemDecoration(itemDecoration)
+    }
 
+    fun setupFragmentPager() {
+        categoryPagerAdapter = ParentCategoryPagerAdapter(this)
+        val tabTitles = resources.getStringArray(com.panasetskaia.core.R.array.tabs)
+        TabLayoutMediator(binding.tabLayoutDetailCategories, binding.viewPagerDetailCategories) { tab, position ->
+            tab.text = tabTitles[position]
+        }.attach()
     }
 
     private fun collectFlows() {
@@ -94,7 +102,6 @@ class DetailsFragment : Fragment() {
                         }
                     }
                 }
-
             }
         }
     }
