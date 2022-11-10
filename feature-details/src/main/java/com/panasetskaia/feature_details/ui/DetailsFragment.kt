@@ -89,6 +89,14 @@ class DetailsFragment : Fragment() {
         binding.toCartButton.setOnClickListener {
 //            replaceWithThisFragment(DetailsFragment::class.java, null)
         }
+        binding.isFav.setOnClickListener {
+            binding.notFav.visibility = View.VISIBLE
+            binding.isFav.visibility = View.GONE
+        }
+        binding.notFav.setOnClickListener {
+            binding.notFav.visibility = View.GONE
+            binding.isFav.visibility = View.VISIBLE
+        }
     }
 
 
@@ -104,10 +112,11 @@ class DetailsFragment : Fragment() {
                         Status.SUCCESS -> {
                             phoneImagesListAdapter.submitList(it.data?.images)
                             with(binding) {
-                                binding.bottomLayout.visibility = View.VISIBLE
+                                bottomLayout.visibility = View.VISIBLE
                                 progressBar.visibility = View.GONE
                                 phoneName.text = it.data?.title
                                 phoneRatingBar.rating = it.data?.rating ?: 0f
+                                priceForCart.text = it.data?.price.toString()
                                 if (it.data?.isFavorite==true) {
                                     notFav.visibility = View.GONE
                                     isFav.visibility = View.VISIBLE
@@ -119,7 +128,8 @@ class DetailsFragment : Fragment() {
                         }
                         Status.ERROR -> {
                             binding.progressBar.visibility = View.GONE
-                            binding.bottomLayout.visibility = View.INVISIBLE
+//                            binding.bottomLayout.visibility = View.INVISIBLE
+                            testing()
                             Toast.makeText(
                                 this@DetailsFragment.requireContext(),
                                 "Cannot load: ${it.message}",
@@ -130,6 +140,12 @@ class DetailsFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun testing() {
+        binding.bottomLayout.visibility = View.VISIBLE
+        binding.phoneName.text = "Some Phone"
+        binding.phoneRatingBar.rating = 3.5f
     }
 
 //    private fun replaceWithThisFragment(fragment: Class<out Fragment>, args: Bundle?) {

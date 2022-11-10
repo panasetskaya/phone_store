@@ -73,17 +73,37 @@ class TabShopFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.phoneStateFlow.collectLatest {
-                    if (it.status == Status.SUCCESS) {
-                        colorsListAdapter.submitList(it.data?.colors)
-                        with (binding) {
-                            cameraDetails.text = it.data?.camera
-                            cpuName.text = it.data?.CPU
-                            sdDetails.text = it.data?.sd
-                            ssdDetails.text = it.data?.ssd
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            colorsListAdapter.submitList(it.data?.colors)
+                            capacitiesListAdapter.submitList(it.data?.capacities)
+                            with (binding) {
+                                cameraDetails.text = it.data?.camera
+                                cpuName.text = it.data?.CPU
+                                sdDetails.text = it.data?.sd
+                                ssdDetails.text = it.data?.ssd
+
+                            }
+                        }
+                        Status.ERROR -> {
+                            testing()
+                            }
+                        else -> {
                         }
                     }
                 }
             }
+        }
+    }
+
+    private fun testing() {
+        colorsListAdapter.submitList(listOf("#eb4034", "#e8b8b5", "#d6cd22"))
+        capacitiesListAdapter.submitList(listOf("256", "128", "133", "000"))
+        with(binding) {
+            cameraDetails.text = "mock camera"
+            cpuName.text = "mock cpu"
+            sdDetails.text = "mock sd"
+            ssdDetails.text = "mock ssd"
         }
     }
 }

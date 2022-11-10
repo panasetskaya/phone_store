@@ -97,7 +97,6 @@
             android:background="@drawable/small_background_curved"
             android:padding="8dp"
             android:src="@drawable/ic_heart"
-            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/phone_name"
             app:layout_constraintBottom_toBottomOf="@+id/phone_name"/>
@@ -110,7 +109,7 @@
             android:background="@drawable/small_background_curved"
             android:padding="8dp"
             android:src="@drawable/ic_baseline_favorite_24"
-            android:visibility="invisible"
+            app:tint="?colorOnSecondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/phone_name"
             app:layout_constraintBottom_toBottomOf="@+id/phone_name"/>
@@ -123,7 +122,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="24dp"
             android:layout_marginStart="38dp"
-            android:text="@string/hot_sales_mock_title"
+            tools:text="@string/hot_sales_mock_title"
             android:textSize="24sp"
             android:textColor="?colorSecondaryVariant"
             android:textStyle="bold"
@@ -149,23 +148,19 @@
             android:id="@+id/tab_layout_detail_categories"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/phoneRatingBar"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="45dp"
-            android:layout_marginEnd="45dp"
-            app:tabGravity="center"
+            app:tabGravity="fill"
             app:tabMode="fixed"
-            app:tabMaxWidth="10dp"
             app:tabIndicatorAnimationMode="elastic"
-            app:tabPaddingEnd="16dp"
-            app:tabPaddingStart="16dp"
             app:tabIndicatorFullWidth="false"
             app:tabRippleColor="@android:color/transparent"
             app:tabIndicatorColor="?colorSecondary"
             app:tabSelectedTextColor="?colorSecondaryVariant"
-            app:tabTextColor="@color/darker_gray">
+            app:tabTextColor="@color/darker_gray"
+            app:tabTextAppearance="@style/TabTextAppearance">
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager2.widget.ViewPager2
@@ -222,7 +217,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="@string/mock_price"
+                    tools:text="@string/mock_price"
                     android:gravity="center"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"

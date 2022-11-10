@@ -1,5 +1,6 @@
 package com.panasetskaia.feature_details.adapters
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
@@ -41,10 +42,10 @@ class CapacitiesListAdapter(val viewModel: DetailsViewModel, val parentFragment:
         holder.binding.capacityVariantText.text = item
         if (item == chosenCapacity) {
             holder.binding.capacityVariantText.setTextColor(com.panasetskaia.core.R.color.white)
-            holder.binding.capacityVariantCard.setBackgroundColor(com.panasetskaia.core.R.color.peach_color)
+            holder.binding.capacityVariantCard.backgroundTintList = ColorStateList.valueOf(com.panasetskaia.core.R.color.peach_color)
         } else {
             holder.binding.capacityVariantText.setTextColor(com.panasetskaia.core.R.color.darker_gray)
-            holder.binding.capacityVariantCard.setBackgroundColor(com.panasetskaia.core.R.color.white)
+            holder.binding.capacityVariantCard.backgroundTintList = ColorStateList.valueOf(com.panasetskaia.core.R.color.white)
         }
     }
 

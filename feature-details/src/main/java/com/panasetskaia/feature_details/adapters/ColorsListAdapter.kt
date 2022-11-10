@@ -43,7 +43,9 @@ class ColorsListAdapter(val viewModel: DetailsViewModel, val parentFragment: Tab
         val color = Color.parseColor(item)
         holder.binding.colorFab.setBackgroundColor(color)
         if (item == chosenColor) {
-            holder.binding.colorFab.imageTintList= ColorStateList.valueOf(com.panasetskaia.core.R.color.white)
+            holder.binding.colorFab.imageTintList = ColorStateList.valueOf(com.panasetskaia.core.R.color.white)
+        } else {
+            holder.binding.colorFab.imageTintList = ColorStateList.valueOf(color)
         }
     }
 
