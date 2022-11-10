@@ -74,6 +74,7 @@ class DetailsFragment : Fragment() {
 
     fun setupFragmentPager() {
         categoryPagerAdapter = ParentCategoryPagerAdapter(this)
+        binding.viewPagerDetailCategories.adapter = categoryPagerAdapter
         val tabTitles = resources.getStringArray(com.panasetskaia.core.R.array.tabs)
         TabLayoutMediator(binding.tabLayoutDetailCategories, binding.viewPagerDetailCategories) { tab, position ->
             tab.text = tabTitles[position]
