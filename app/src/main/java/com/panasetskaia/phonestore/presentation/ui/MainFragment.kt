@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.panasetskaia.core.domain.entities.Status
+import com.panasetskaia.feature_cart.ui.CartFragment
 import com.panasetskaia.feature_details.ui.DetailsFragment
 import com.panasetskaia.phonestore.R
 import com.panasetskaia.phonestore.databinding.FragmentMainBinding
@@ -102,11 +103,7 @@ class MainFragment : Fragment() {
         binding.mainBottomToolbar.root.setOnNavigationItemSelectedListener{
             when (it.itemId) {
                 com.panasetskaia.core.R.id.to_cart -> {
-                    Toast.makeText(
-                        this@MainFragment.requireContext(),
-                        "Go to your cart",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    replaceWithThisFragment(CartFragment::class.java, null)
                     true
                 }
                 com.panasetskaia.core.R.id.to_account -> {
