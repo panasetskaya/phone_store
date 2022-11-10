@@ -84,15 +84,19 @@ class TabShopFragment : Fragment() {
         for (i in colors) {
             val radioButton = RadioButton(this@TabShopFragment.requireContext())
             radioButton.id = colors.indexOf(i)
+            if (colors.indexOf(i)==0) {
+                radioButton.isChecked = true
+            }
             val params =
-                RadioGroup.LayoutParams(120, 120)
+                RadioGroup.LayoutParams(150, 150)
             params.leftMargin = 32
             params.rightMargin = 32
             params.gravity = Gravity.CENTER
             radioButton.layoutParams = params
-            radioButton.background = resources.getDrawable(com.panasetskaia.core.R.drawable.circular)
-            radioButton.backgroundTintList = ColorStateList.valueOf(Color.parseColor(i))
+            radioButton.scaleX = 1.7f
+            radioButton.scaleY = 1.7f
             radioButton.setButtonDrawable(R.drawable.color_radio_icon_selector)
+            radioButton.buttonTintList = ColorStateList.valueOf(Color.parseColor(i))
             binding.radioGroupColors.addView(radioButton)
         }
         binding.radioGroupColors.setOnCheckedChangeListener { radioGroup, i ->
@@ -101,25 +105,19 @@ class TabShopFragment : Fragment() {
         for (i in capacities) {
             val radioButton = RadioButton(this@TabShopFragment.requireContext())
             radioButton.id = capacities.indexOf(i)
+            if (capacities.indexOf(i)==0) {
+                radioButton.isChecked = true
+            }
             val params =
                 RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, 120)
-//            params.leftMargin = 32
+            params.leftMargin = 32
             params.weight = 1f
             radioButton.layoutParams = params
+            radioButton.buttonDrawable = null
             radioButton.text = i + " GB"
             radioButton.gravity = Gravity.CENTER
-            radioButton.buttonDrawable = null
-            radioButton.setOnCheckedChangeListener { compoundButton, b ->
-                if (b) {
-
-                    radioButton.setBackgroundColor(resources.getColor(com.panasetskaia.core.R.color.peach_color))
-                    radioButton.setTextColor(resources.getColor(com.panasetskaia.core.R.color.white))
-                } else {
-
-                    radioButton.setBackgroundColor(resources.getColor(com.panasetskaia.core.R.color.white))
-                    radioButton.setTextColor(resources.getColor(com.panasetskaia.core.R.color.darker_gray))
-                }
-            }
+            radioButton.setTextColor(resources.getColorStateList(R.color.capacities_radio_colors))
+            radioButton.background = resources.getDrawable(R.drawable.capacities_buttons)
             binding.radioGroupCapacities.addView(radioButton)
         }
         binding.radioGroupCapacities.setOnCheckedChangeListener { radioGroup, i ->
