@@ -1,14 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_gray"
     tools:context=".ui.CartFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+        android:id="@+id/go_back_button"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/small_background_curved"
+        android:padding="8dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/add_address_button"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="38dp"
+        android:background="@drawable/small_background_curved"
+        android:backgroundTint="@color/peach_color"
+        android:padding="8dp"
+        android:src="@drawable/ic_location"
+        app:tint="?colorOnSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/add_address_button"
+        app:layout_constraintBottom_toBottomOf="@+id/add_address_button"
+        app:layout_constraintEnd_toStartOf="@+id/add_address_button"
+        android:text="@string/add_address"
+        android:layout_marginEnd="9dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="?colorSecondaryVariant"
+        />
+
+    <TextView
+        android:id="@+id/m_cart_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/go_back_button"
+        app:layout_constraintBottom_toTopOf="@id/guidelineOneThird"
+        android:layout_marginStart="38dp"
+        android:text="@string/my_cart"
+        android:textSize="35sp"
+        android:textColor="?colorSecondaryVariant"
+        android:textStyle="bold"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineOneThird"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineOneThird"
+        android:background="@drawable/nav_background_curved"
+        android:backgroundTint="?colorSecondaryVariant"
+        android:elevation="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCartItems"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/top_border"
+            />
+
+        <View
+            android:id="@+id/top_border"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_border"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="90dp"
+            android:background="@color/background_blue" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineForSum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guidelineForSum"
+            app:layout_constraintTop_toBottomOf="@id/top_border"
+            app:layout_constraintBottom_toTopOf="@id/tv_delivery"
+            android:text="@string/total"
+            android:textColor="?colorOnSecondary"
+            android:textSize="16sp"
+            android:gravity="center_vertical"
+            app:layout_constraintVertical_chainStyle="packed"/>
+
+        <TextView
+            android:id="@+id/tv_delivery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:text="@string/delivery"
+            android:textColor="?colorOnSecondary"
+            android:textSize="16sp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_total"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guidelineForSum"
+            app:layout_constraintBottom_toTopOf="@id/bottom_border"/>
+
+        <TextView
+            android:id="@+id/tv_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            tools:text="$600 US"
+            android:textColor="?colorOnSecondary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@+id/tv_total"
+
+            app:layout_constraintStart_toEndOf="@id/guidelineForSum"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_total"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_delivery_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            tools:text="Free"
+            android:textColor="?colorOnSecondary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@+id/tv_delivery"
+
+            app:layout_constraintStart_toEndOf="@id/guidelineForSum"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_delivery"
+
+            />
+
+        <View
+            android:id="@+id/bottom_border"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toTopOf="@id/checkout_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="27dp"
+            android:background="@color/background_blue" />
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/checkout_button"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:clickable="true"
+            android:gravity="center"
+            style="@style/PeachButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:backgroundTint="?colorSecondary"
+            app:cardCornerRadius="10dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_add_to_cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:paddingBottom="7dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/checkout"
+                    android:textStyle="bold"
+                    android:textColor="?colorOnSecondary"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

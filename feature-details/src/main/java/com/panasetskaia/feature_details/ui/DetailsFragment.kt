@@ -111,12 +111,13 @@ class DetailsFragment : Fragment() {
                         }
                         Status.SUCCESS -> {
                             phoneImagesListAdapter.submitList(it.data?.images)
+
                             with(binding) {
                                 bottomLayout.visibility = View.VISIBLE
                                 progressBar.visibility = View.GONE
                                 phoneName.text = it.data?.title
                                 phoneRatingBar.rating = it.data?.rating ?: 0f
-                                priceForCart.text = it.data?.price.toString() + "$"
+                                priceForCart.text = "$" + it.data?.price.toString() + ".00"
                                 if (it.data?.isFavorite==true) {
                                     notFav.visibility = View.GONE
                                     isFav.visibility = View.VISIBLE
@@ -128,11 +129,12 @@ class DetailsFragment : Fragment() {
                         }
                         Status.ERROR -> {
                             binding.progressBar.visibility = View.GONE
-                            //todo: удалить тест, когда починят АПИ
-                            viewModel.setTestingPhone()
+                            binding.bottomLayout.visibility = View.INVISIBLE
+                            //удалить тест, когда починят апи
+//                            viewModel.setTestingPhone()
                             Toast.makeText(
                                 this@DetailsFragment.requireContext(),
-                                "Cannot load: ${it.message}. Setting a sample phone",
+                                "Cannot load: ${it.message}",
                                 Toast.LENGTH_LONG
                             ).show()
                         }

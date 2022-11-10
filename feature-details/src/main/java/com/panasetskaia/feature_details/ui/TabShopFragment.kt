@@ -56,6 +56,7 @@ class TabShopFragment : Fragment() {
                 viewModel.phoneStateFlow.collectLatest {
                     when (it.status) {
                         Status.SUCCESS -> {
+
                             with(binding) {
                                 cameraDetails.text = it.data?.camera
                                 cpuName.text = it.data?.CPU
