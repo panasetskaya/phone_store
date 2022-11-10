@@ -14,38 +14,55 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
-class PhoneStoreRepositoryImpl(application: Application): PhoneStoreRepository {
+class PhoneStoreRepositoryImpl(application: Application) : PhoneStoreRepository {
 
     private val apiService = ApiFactory.apiService
     private val mapper = PhoneMapper()
     private val db = CartDatabase.getInstance(application)
 
-    override suspend fun getSinglePhone(): Flow<NetworkResult<Phone>> = flow {
-        val phone = mapper.mapPhoneDtoModelToEntity (apiService.getSinglePhone())
-            emit(NetworkResult.success(phone))
-        }.flowOn(Dispatchers.IO)
-
+    override suspend fun getSinglePhone(): Flow<NetworkResult<Phone>> {
+        return try {
+            val phone = mapper.mapPhoneDtoModelToEntity(apiService.getSinglePhone())
+            flow { emit(NetworkResult.success(phone)) }.flowOn(Dispatchers.IO)
+        }catch (e: Exception) {
+            flow {
+                emit(NetworkResult.error(e.message ?: "Error while loading"))
+            }
+        }
+    }
 
     override suspend fun getHotSales(): Flow<NetworkResult<List<HotSale>>> {
-        val hotSalesDto = apiService.getStore().hotSales
-        val hotSales = mutableListOf<HotSale>()
-        for (i in hotSalesDto) {
-            hotSales.add(mapper.mapHotSaleDataModelToEntity(i))
+        return try {
+            val hotSalesDto = apiService.getStore().hotSales
+            val hotSales = mutableListOf<HotSale>()
+            for (i in hotSalesDto) {
+                hotSales.add(mapper.mapHotSaleDataModelToEntity(i))
+            }
+            flow {
+                emit(NetworkResult.success(hotSales))
+            }.flowOn(Dispatchers.IO)
+        } catch (e: Exception) {
+            flow {
+                emit(NetworkResult.error(e.message ?: "Error while loading"))
+            }
         }
-        return flow {
-            emit(NetworkResult.success(hotSales))
-        }.flowOn(Dispatchers.IO)
     }
 
     override suspend fun getBestSellers(): Flow<NetworkResult<List<BestSeller>>> {
-        val bestSellersDto = apiService.getStore().bestSellers
-        val bestSellers = mutableListOf<BestSeller>()
-        for (i in bestSellersDto) {
-            bestSellers.add(mapper.mapBestSellerDataModelToEntity(i))
+        return try {
+            val bestSellersDto = apiService.getStore().bestSellers
+            val bestSellers = mutableListOf<BestSeller>()
+            for (i in bestSellersDto) {
+                bestSellers.add(mapper.mapBestSellerDataModelToEntity(i))
+            }
+            flow {
+                emit(NetworkResult.success(bestSellers))
+            }.flowOn(Dispatchers.IO)
+        } catch (e: Exception) {
+            flow {
+                emit(NetworkResult.error(e.message ?: "Error while loading"))
+            }
         }
-        return flow {
-            emit(NetworkResult.success(bestSellers))
-        }.flowOn(Dispatchers.IO)
     }
 
     override suspend fun addToCart(phone: Phone) {

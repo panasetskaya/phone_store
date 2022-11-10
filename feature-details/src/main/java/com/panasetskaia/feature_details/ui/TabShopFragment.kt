@@ -75,6 +75,12 @@ class TabShopFragment : Fragment() {
                 viewModel.phoneStateFlow.collectLatest {
                     if (it.status == Status.SUCCESS) {
                         colorsListAdapter.submitList(it.data?.colors)
+                        with (binding) {
+                            cameraDetails.text = it.data?.camera
+                            cpuName.text = it.data?.CPU
+                            sdDetails.text = it.data?.sd
+                            ssdDetails.text = it.data?.ssd
+                        }
                     }
                 }
             }

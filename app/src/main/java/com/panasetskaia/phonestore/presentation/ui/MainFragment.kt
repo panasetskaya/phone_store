@@ -69,7 +69,6 @@ class MainFragment : Fragment() {
         with(binding.recyclerViewHotSales) {
             adapter = hotSalesListAdapter
             hotSalesListAdapter.onItemClickListener = {
-                parentFragmentManager.popBackStack()
                 replaceWithThisFragment(DetailsFragment::class.java, null)
             }
         }
@@ -118,11 +117,12 @@ class MainFragment : Fragment() {
                     ).show()
                     true
                 } else -> {
-                Toast.makeText(
-                    this@MainFragment.requireContext(),
-                    "Go to your favourites",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    this@MainFragment.requireContext(),
+//                    "Go to your favourites",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+                replaceWithThisFragment(DetailsFragment::class.java, null)
                     true
                 }
             }
@@ -141,11 +141,11 @@ class MainFragment : Fragment() {
                                 binding.progressBarRVHotSales.visibility = View.VISIBLE
                             }
                             Status.SUCCESS -> {
-                                binding.progressBarRVHotSales.visibility = View.GONE
+                                binding.progressBarRVHotSales.visibility = View.INVISIBLE
                                 hotSalesListAdapter.submitList(it.data)
                             }
-                            else -> {
-                                binding.progressBarRVHotSales.visibility = View.GONE
+                            Status.ERROR -> {
+                                binding.progressBarRVHotSales.visibility = View.INVISIBLE
                                 Toast.makeText(
                                     this@MainFragment.requireContext(),
                                     "Cannot load: ${it.message}",
@@ -166,17 +166,11 @@ class MainFragment : Fragment() {
                                 binding.progressBarRVBestSellers.visibility = View.GONE
                                 bestSellersListAdapter.submitList(it.data)
                             }
-                            else -> {
+                            Status.ERROR -> {
                                 binding.progressBarRVBestSellers.visibility = View.GONE
-                                Toast.makeText(
-                                    this@MainFragment.requireContext(),
-                                    "Cannot load: ${it.message}",
-                                    Toast.LENGTH_SHORT
-                                ).show()
                             }
                         }
                     }
-
                 }
             }
         }

@@ -12,7 +12,6 @@ import com.panasetskaia.core.domain.usecases.GetBestSellersUseCase
 import com.panasetskaia.core.domain.usecases.GetHotSalesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 internal class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -41,26 +40,36 @@ internal class MainViewModel(application: Application) : AndroidViewModel(applic
     fun getNewHotSales() {
         _hotSalesStateFlow.value = NetworkResult.loading()
         viewModelScope.launch {
-            getHots()
-                .catch {
-                    _hotSalesStateFlow.value = NetworkResult.error(it.message.toString())
+            getHots().collect {
+                when (it.status) {
+                    Status.ERROR -> {
+                        _hotSalesStateFlow.value = NetworkResult.error(it.message.toString())
+                    }
+                    Status.SUCCESS -> {
+                        _hotSalesStateFlow.value = NetworkResult.success(it.data)
+                    }
+                    else -> {
+                    }
                 }
-                .collect {
-                    _hotSalesStateFlow.value = NetworkResult.success(it.data)
-                }
+            }
         }
     }
 
     fun getNewBestSellers() {
         _bestSellersStateFlow.value = NetworkResult.loading()
         viewModelScope.launch {
-            getBests()
-                .catch {
-                    _bestSellersStateFlow.value = NetworkResult.error(it.message.toString())
+            getBests().collect {
+                when (it.status) {
+                    Status.ERROR -> {
+                        _bestSellersStateFlow.value = NetworkResult.error(it.message.toString())
+                    }
+                    Status.SUCCESS -> {
+                        _bestSellersStateFlow.value = NetworkResult.success(it.data)
+                    }
+                    else -> {
+                    }
                 }
-                .collect {
-                    _bestSellersStateFlow.value = NetworkResult.success(it.data)
-                }
+            }
         }
     }
 }

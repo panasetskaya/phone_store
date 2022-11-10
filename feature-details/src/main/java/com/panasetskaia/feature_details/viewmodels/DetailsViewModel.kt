@@ -10,7 +10,6 @@ import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.core.domain.usecases.GetSinglePhoneUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class DetailsViewModel(application: Application) : AndroidViewModel(application) {
@@ -40,13 +39,19 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
         _phoneStateFlow.value = NetworkResult.loading()
         viewModelScope.launch {
             getPhone()
-                .catch {
-                    _phoneStateFlow.value = NetworkResult.error(it.message.toString())
-                }
                 .collect {
-                    _phoneStateFlow.value = NetworkResult.success(it.data)
-                    _chosenColorFlow.value = it.data?.colors?.get(0) ?: ""
-                    _chosenCapacityFlow.value = it.data?.capacities?.get(0) ?: ""
+                    when (it.status) {
+                        Status.ERROR -> {
+                            _phoneStateFlow.value = NetworkResult.error(it.message.toString())
+                        }
+                        Status.SUCCESS -> {
+                            _phoneStateFlow.value = NetworkResult.success(it.data)
+                            _chosenColorFlow.value = it.data?.colors?.get(0) ?: ""
+                            _chosenCapacityFlow.value = it.data?.capacities?.get(0) ?: ""
+                        }
+                        else -> {
+                        }
+                    }
                 }
         }
     }

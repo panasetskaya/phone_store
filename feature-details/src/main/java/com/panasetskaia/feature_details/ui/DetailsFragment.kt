@@ -45,6 +45,7 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[DetailsViewModel::class.java]
         collectFlows()
+        setupListeners()
         setupImagePager()
         setupFragmentPager()
     }
@@ -72,7 +73,7 @@ class DetailsFragment : Fragment() {
         binding.viewPagerPhonePics.addItemDecoration(itemDecoration)
     }
 
-    fun setupFragmentPager() {
+    private fun setupFragmentPager() {
         categoryPagerAdapter = ParentCategoryPagerAdapter(this)
         binding.viewPagerDetailCategories.adapter = categoryPagerAdapter
         val tabTitles = resources.getStringArray(com.panasetskaia.core.R.array.tabs)
@@ -81,6 +82,16 @@ class DetailsFragment : Fragment() {
         }.attach()
     }
 
+    private fun setupListeners() {
+        binding.goBackButton.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+        binding.toCartButton.setOnClickListener {
+//            replaceWithThisFragment(DetailsFragment::class.java, null)
+        }
+    }
+
+
     private fun collectFlows() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -88,13 +99,27 @@ class DetailsFragment : Fragment() {
                     when (it.status) {
                         Status.LOADING -> {
                             binding.progressBar.visibility = View.VISIBLE
+                            binding.bottomLayout.visibility = View.INVISIBLE
                         }
                         Status.SUCCESS -> {
-                            binding.progressBar.visibility = View.GONE
                             phoneImagesListAdapter.submitList(it.data?.images)
+                            with(binding) {
+                                binding.bottomLayout.visibility = View.VISIBLE
+                                progressBar.visibility = View.GONE
+                                phoneName.text = it.data?.title
+                                phoneRatingBar.rating = it.data?.rating ?: 0f
+                                if (it.data?.isFavorite==true) {
+                                    notFav.visibility = View.GONE
+                                    isFav.visibility = View.VISIBLE
+                                } else {
+                                    notFav.visibility = View.VISIBLE
+                                    isFav.visibility = View.GONE
+                                }
+                            }
                         }
-                        else -> {
+                        Status.ERROR -> {
                             binding.progressBar.visibility = View.GONE
+                            binding.bottomLayout.visibility = View.INVISIBLE
                             Toast.makeText(
                                 this@DetailsFragment.requireContext(),
                                 "Cannot load: ${it.message}",
@@ -107,5 +132,11 @@ class DetailsFragment : Fragment() {
         }
     }
 
-
+//    private fun replaceWithThisFragment(fragment: Class<out Fragment>, args: Bundle?) {
+//        parentFragmentManager.beginTransaction()
+//            .setReorderingAllowed(true)
+//            .replace(R.id.fcvMain, fragment, args)
+//            .addToBackStack(null)
+//            .commit()
+//    }
 }
