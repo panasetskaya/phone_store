@@ -10,6 +10,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.panasetskaia.core.domain.entities.Status
@@ -31,6 +35,7 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var bestSellersListAdapter: BestSellersListAdapter
     private lateinit var hotSalesListAdapter: HotSalesListAdapter
+    private lateinit var navController: NavController
 
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding
@@ -48,6 +53,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bottomSheetDialog = BottomSheetDialog(requireContext())
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        navController = Navigation.findNavController(requireActivity(), R.id.fcvMain)
         setupRecyclers()
         setListeners()
         collectFlows()
@@ -60,8 +66,7 @@ class MainFragment : Fragment() {
         with(binding.recyclerViewBestSellers) {
             adapter = bestSellersListAdapter
             bestSellersListAdapter.onItemClickListener = {
-                parentFragmentManager.popBackStack()
-                replaceWithThisFragment(DetailsFragment::class.java, null)
+                navController.navigate(R.id.action_mainFragment_to_detailsFragment, null)
             }
         }
         hotSalesListAdapter = HotSalesListAdapter()
@@ -70,7 +75,7 @@ class MainFragment : Fragment() {
         with(binding.recyclerViewHotSales) {
             adapter = hotSalesListAdapter
             hotSalesListAdapter.onItemClickListener = {
-                replaceWithThisFragment(DetailsFragment::class.java, null)
+                navController.navigate(R.id.action_mainFragment_to_detailsFragment, null)
             }
         }
     }
@@ -103,7 +108,7 @@ class MainFragment : Fragment() {
         binding.mainBottomToolbar.root.setOnNavigationItemSelectedListener{
             when (it.itemId) {
                 com.panasetskaia.core.R.id.to_cart -> {
-                    replaceWithThisFragment(CartFragment::class.java, null)
+                    navController.navigate(R.id.action_mainFragment_to_cartFragment, null)
                     true
                 }
                 com.panasetskaia.core.R.id.to_account -> {

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.panasetskaia.core.domain.entities.Phone
 import com.panasetskaia.feature_cart.presentation.adapters.PhoneListAdapter
 import com.panasetskaia.feature_cart.databinding.FragmentCartBinding
+import com.panasetskaia.feature_cart.navigation.CartNavCommandProvider
 import com.panasetskaia.feature_cart.presentation.viewmodels.CartViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
