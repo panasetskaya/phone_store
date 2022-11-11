@@ -1,4 +1,4 @@
-package com.panasetskaia.feature_cart.ui
+package com.panasetskaia.feature_cart.presentation.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,9 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.panasetskaia.core.domain.entities.Phone
-import com.panasetskaia.feature_cart.adapters.PhoneListAdapter
+import com.panasetskaia.feature_cart.presentation.adapters.PhoneListAdapter
 import com.panasetskaia.feature_cart.databinding.FragmentCartBinding
-import com.panasetskaia.feature_cart.viewmodels.CartViewModel
+import com.panasetskaia.feature_cart.presentation.viewmodels.CartViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

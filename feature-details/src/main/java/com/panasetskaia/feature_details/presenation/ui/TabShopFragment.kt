@@ -1,4 +1,4 @@
-package com.panasetskaia.feature_details.ui
+package com.panasetskaia.feature_details.presenation.ui
 
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.core.view.marginLeft
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -19,7 +20,7 @@ import com.panasetskaia.core.domain.entities.Phone
 import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.feature_details.R
 import com.panasetskaia.feature_details.databinding.FragmentTabShopBinding
-import com.panasetskaia.feature_details.viewmodels.DetailsViewModel
+import com.panasetskaia.feature_details.presenation.viewmodels.DetailsViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

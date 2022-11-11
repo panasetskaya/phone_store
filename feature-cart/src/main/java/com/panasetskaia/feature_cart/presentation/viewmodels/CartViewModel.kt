@@ -1,4 +1,4 @@
-package com.panasetskaia.feature_cart.viewmodels
+package com.panasetskaia.feature_cart.presentation.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

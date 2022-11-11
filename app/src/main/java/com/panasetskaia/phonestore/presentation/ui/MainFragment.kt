@@ -13,8 +13,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.panasetskaia.core.domain.entities.Status
-import com.panasetskaia.feature_cart.ui.CartFragment
-import com.panasetskaia.feature_details.ui.DetailsFragment
+import com.panasetskaia.feature_cart.presentation.ui.CartFragment
+import com.panasetskaia.feature_details.presenation.ui.DetailsFragment
 import com.panasetskaia.phonestore.R
 import com.panasetskaia.phonestore.databinding.FragmentMainBinding
 import com.panasetskaia.phonestore.presentation.adapters.BestSellersListAdapter

@@ -1,4 +1,4 @@
-package com.panasetskaia.feature_details.adapters
+package com.panasetskaia.feature_details.presenation.adapters
 
 import androidx.recyclerview.widget.DiffUtil
 

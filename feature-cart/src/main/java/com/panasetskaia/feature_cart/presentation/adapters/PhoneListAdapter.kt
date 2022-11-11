@@ -1,4 +1,4 @@
-package com.panasetskaia.feature_cart.adapters
+package com.panasetskaia.feature_cart.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.panasetskaia.core.domain.entities.Phone
 import com.panasetskaia.feature_cart.databinding.CartItemLayoutBinding
-import com.panasetskaia.feature_cart.viewmodels.CartViewModel
+import com.panasetskaia.feature_cart.presentation.viewmodels.CartViewModel
 
-class PhoneListAdapter(private val viewModel: CartViewModel): ListAdapter<Phone, PhoneListAdapter.PhoneViewHolder>(PhoneDiffUtil()) {
+class PhoneListAdapter(private val viewModel: CartViewModel): ListAdapter<Phone, PhoneListAdapter.PhoneViewHolder>(
+    PhoneDiffUtil()
+) {
 
     class PhoneViewHolder(val binding: CartItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -45,6 +47,7 @@ class PhoneListAdapter(private val viewModel: CartViewModel): ListAdapter<Phone,
                 }
 
             }
+            tvItemQuantity.text = item.quantity.toString()
             tvCartItemTitle.text = item.title
             tvCartItemPrice.text = "$"+ "${item.price?.times(item.quantity) ?: 0}" + ".00"
             imageViewCardView.setOnClickListener{

@@ -1,4 +1,4 @@
-package com.panasetskaia.feature_details.ui
+package com.panasetskaia.feature_details.presenation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,11 +14,11 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.feature_details.R
-import com.panasetskaia.feature_details.adapters.HorizontalMarginItemDecoration
-import com.panasetskaia.feature_details.adapters.ParentCategoryPagerAdapter
-import com.panasetskaia.feature_details.adapters.PhoneImagesListAdapter
+import com.panasetskaia.feature_details.presenation.adapters.HorizontalMarginItemDecoration
+import com.panasetskaia.feature_details.presenation.adapters.ParentCategoryPagerAdapter
+import com.panasetskaia.feature_details.presenation.adapters.PhoneImagesListAdapter
 import com.panasetskaia.feature_details.databinding.FragmentDetailsBinding
-import com.panasetskaia.feature_details.viewmodels.DetailsViewModel
+import com.panasetskaia.feature_details.presenation.viewmodels.DetailsViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.lang.Math.abs

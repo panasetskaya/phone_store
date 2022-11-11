@@ -1,4 +1,4 @@
-package com.panasetskaia.feature_details.ui
+package com.panasetskaia.feature_details.presenation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

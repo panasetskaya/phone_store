@@ -1,4 +1,4 @@
-package com.panasetskaia.feature_details.viewmodels
+package com.panasetskaia.feature_details.presenation.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -35,7 +35,9 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
     fun addToCart() {
         viewModelScope.launch {
             val oldPhone = phoneStateFlow.value.data
+            var oldId = oldPhone?.id ?: 0
             val newPhone = oldPhone?.copy(
+                id = ++oldId,
                 quantity = 1,
                 chosenCapacity = chosenCapacity,
                 chosenColor = chosenColor

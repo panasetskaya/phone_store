@@ -1,4 +1,4 @@
-package com.panasetskaia.feature_cart.adapters
+package com.panasetskaia.feature_cart.presentation.adapters
 
 import androidx.recyclerview.widget.DiffUtil
 import com.panasetskaia.core.domain.entities.Phone
