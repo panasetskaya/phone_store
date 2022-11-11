@@ -12,7 +12,6 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.panasetskaia.core.domain.entities.BestSeller
-import com.panasetskaia.phonestore.R
 import com.panasetskaia.phonestore.databinding.BestSellerCardBinding
 
 class BestSellersListAdapter: ListAdapter<BestSeller, BestSellersListAdapter.BestSellersViewHolder>(BestSellersDiffUtil()) {

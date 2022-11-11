@@ -51,6 +51,7 @@
     <string name="total">Total</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
+    <string name="free">Free</string>
     <string-array name="tabs">
         <item>Shop</item>
         <item>Details</item>

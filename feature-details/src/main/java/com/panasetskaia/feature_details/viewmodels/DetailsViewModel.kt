@@ -7,6 +7,7 @@ import com.panasetskaia.core.data.PhoneStoreRepositoryImpl
 import com.panasetskaia.core.domain.entities.NetworkResult
 import com.panasetskaia.core.domain.entities.Phone
 import com.panasetskaia.core.domain.entities.Status
+import com.panasetskaia.core.domain.usecases.AddToCartUseCase
 import com.panasetskaia.core.domain.usecases.GetSinglePhoneUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,9 +17,10 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
 
     private val repo = PhoneStoreRepositoryImpl(application)
     private val getPhone = GetSinglePhoneUseCase(repo)
+    private val add = AddToCartUseCase(repo)
 
-    private var chosenColor: String? =null
-    private var chosenCapacity: String? =null
+    private var chosenColor: String? = null
+    private var chosenCapacity: String? = null
 
     private val _phoneStateFlow = MutableStateFlow(
         NetworkResult(Status.LOADING, Phone(), "")
@@ -28,6 +30,18 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
 
     init {
         getNewPhone()
+    }
+
+    fun addToCart() {
+        viewModelScope.launch {
+            val oldPhone = phoneStateFlow.value.data
+            val newPhone = oldPhone?.copy(
+                quantity = 1,
+                chosenCapacity = chosenCapacity,
+                chosenColor = chosenColor
+            )
+            newPhone?.let { add(it) }
+        }
     }
 
     fun getNewPhone() {
@@ -59,8 +73,10 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
 
     fun setTestingPhone() {
         val phone = Phone(
-            images = listOf("https://www.notebookcheck-ru.com/uploads/tx_nbc2/OppoFindX2Pro.JPG",
-                "https://www.ixbt.com/img/n1/news/2020/1/6/oppo-find-x2-pro-live-images-71_large.jpg"),
+            images = listOf(
+                "https://www.notebookcheck-ru.com/uploads/tx_nbc2/OppoFindX2Pro.JPG",
+                "https://www.ixbt.com/img/n1/news/2020/1/6/oppo-find-x2-pro-live-images-71_large.jpg"
+            ),
             title = "Gorgeous SmartPhone",
             price = 2222,
             rating = 4.3f,

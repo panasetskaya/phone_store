@@ -114,12 +114,11 @@ class MainFragment : Fragment() {
                     ).show()
                     true
                 } else -> {
-//                Toast.makeText(
-//                    this@MainFragment.requireContext(),
-//                    "Go to your favourites",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-                replaceWithThisFragment(DetailsFragment::class.java, null)
+                Toast.makeText(
+                    this@MainFragment.requireContext(),
+                    "Go to your favourites",
+                    Toast.LENGTH_SHORT
+                ).show()
                     true
                 }
             }
@@ -174,7 +173,7 @@ class MainFragment : Fragment() {
     }
 
     //todo: значок с количеством товаров в корзине
-    //todo: переход на фрагменты Details, Cart
+    //todo: переход на Cart
 
     private fun showBottomSheetDialog() {
         val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet_dialog_layout, null)

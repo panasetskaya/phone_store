@@ -125,6 +125,10 @@ class DetailsFragment : Fragment() {
                                     notFav.visibility = View.VISIBLE
                                     isFav.visibility = View.GONE
                                 }
+
+                                addToCartButton.setOnClickListener {
+                                    viewModel.addToCart()
+                                }
                             }
                         }
                         Status.ERROR -> {
