@@ -1,9 +1,9 @@
-package com.panasetskaia.feature_details.adapters
+package com.panasetskaia.feature_details.presenation.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.panasetskaia.feature_details.ui.TabDefaultFragment
-import com.panasetskaia.feature_details.ui.TabShopFragment
+import com.panasetskaia.feature_details.presenation.ui.TabDefaultFragment
+import com.panasetskaia.feature_details.presenation.ui.TabShopFragment
 
 class ParentCategoryPagerAdapter(
     parentFragment: Fragment

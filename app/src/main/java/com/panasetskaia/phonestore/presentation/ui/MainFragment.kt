@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +14,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.panasetskaia.core.domain.entities.Status
-import com.panasetskaia.feature_details.ui.DetailsFragment
+import com.panasetskaia.core.navigation.NavCommand
+import com.panasetskaia.core.utils.navigate
 import com.panasetskaia.phonestore.R
 import com.panasetskaia.phonestore.databinding.FragmentMainBinding
 import com.panasetskaia.phonestore.presentation.adapters.BestSellersListAdapter
@@ -49,6 +51,7 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         setupRecyclers()
         setListeners()
+        setupBottomBar()
         collectFlows()
     }
 
@@ -59,8 +62,7 @@ class MainFragment : Fragment() {
         with(binding.recyclerViewBestSellers) {
             adapter = bestSellersListAdapter
             bestSellersListAdapter.onItemClickListener = {
-                parentFragmentManager.popBackStack()
-                replaceWithThisFragment(DetailsFragment::class.java, null)
+                navigate(NavCommand(R.id.action_mainFragment_to_detailsFragment), R.id.fcvMain)
             }
         }
         hotSalesListAdapter = HotSalesListAdapter()
@@ -69,7 +71,7 @@ class MainFragment : Fragment() {
         with(binding.recyclerViewHotSales) {
             adapter = hotSalesListAdapter
             hotSalesListAdapter.onItemClickListener = {
-                replaceWithThisFragment(DetailsFragment::class.java, null)
+                navigate(NavCommand(R.id.action_mainFragment_to_detailsFragment), R.id.fcvMain)
             }
         }
     }
@@ -99,14 +101,15 @@ class MainFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+    private fun setupBottomBar() {
+        val badge = binding.mainBottomToolbar.root.getOrCreateBadge(com.panasetskaia.core.R.id.to_cart)
+        badge.backgroundColor = ContextCompat.getColor(this.requireContext(), com.panasetskaia.core.R.color.peach_color)
         binding.mainBottomToolbar.root.setOnNavigationItemSelectedListener{
             when (it.itemId) {
                 com.panasetskaia.core.R.id.to_cart -> {
-                    Toast.makeText(
-                        this@MainFragment.requireContext(),
-                        "Go to your cart",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    navigate(NavCommand(R.id.action_mainFragment_to_cartFragment), R.id.fcvMain)
                     true
                 }
                 com.panasetskaia.core.R.id.to_account -> {
@@ -117,18 +120,15 @@ class MainFragment : Fragment() {
                     ).show()
                     true
                 } else -> {
-//                Toast.makeText(
-//                    this@MainFragment.requireContext(),
-//                    "Go to your favourites",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-                replaceWithThisFragment(DetailsFragment::class.java, null)
-                    true
-                }
+                Toast.makeText(
+                    this@MainFragment.requireContext(),
+                    "Go to your favourites",
+                    Toast.LENGTH_SHORT
+                ).show()
+                true
+            }
             }
         }
-
-
     }
 
     private fun collectFlows() {
@@ -154,7 +154,6 @@ class MainFragment : Fragment() {
                             }
                         }
                     }
-
                 }
                 launch {
                     viewModel.bestSellersStateFlow.collectLatest {
@@ -172,12 +171,20 @@ class MainFragment : Fragment() {
                         }
                     }
                 }
+                launch {
+                    viewModel.cartSizeFlow.collectLatest {
+                        val badge = binding.mainBottomToolbar.root.getBadge(com.panasetskaia.core.R.id.to_cart)
+                        if (it>0) {
+                            badge?.isVisible = true
+                            badge?.number = it
+                        } else {
+                            badge?.isVisible = false
+                        }
+                    }
+                }
             }
         }
     }
-
-    //todo: значок с количеством товаров в корзине
-    //todo: переход на фрагменты Details, Cart
 
     private fun showBottomSheetDialog() {
         val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet_dialog_layout, null)
@@ -210,14 +217,5 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-
-    private fun replaceWithThisFragment(fragment: Class<out Fragment>, args: Bundle?) {
-        parentFragmentManager.beginTransaction()
-            .setReorderingAllowed(true)
-            .replace(R.id.fcvMain, fragment, args)
-            .addToBackStack(null)
-            .commit()
     }
 }

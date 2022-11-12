@@ -36,6 +36,7 @@
     <string name="mock_camera">108 + 12mp</string>
     <string name="mock_ssd">8 GB</string>
     <string name="mock_sd">256 GB</string>
+    <string name="gb">%1$s GB</string>
     <string name="title_activity_basic">BasicActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -45,11 +46,19 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_cart">My Cart</string>
+    <string name="checkout">Checkout</string>
+    <string name="add_address">Add address</string>
+    <string name="total">Total</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="free">Free</string>
     <string-array name="tabs">
         <item>Shop</item>
         <item>Details</item>
         <item>Features</item>
     </string-array>
+    <string name="price_for_cart">$%1$d.00"</string>
 
 
 </resources>

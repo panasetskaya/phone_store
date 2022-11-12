@@ -1,27 +1,33 @@
-package com.panasetskaia.feature_details.ui
+package com.panasetskaia.feature_details.presenation.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.tabs.TabLayoutMediator
 import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.feature_details.R
-import com.panasetskaia.feature_details.adapters.HorizontalMarginItemDecoration
-import com.panasetskaia.feature_details.adapters.ParentCategoryPagerAdapter
-import com.panasetskaia.feature_details.adapters.PhoneImagesListAdapter
 import com.panasetskaia.feature_details.databinding.FragmentDetailsBinding
-import com.panasetskaia.feature_details.viewmodels.DetailsViewModel
+import com.panasetskaia.feature_details.presenation.adapters.HorizontalMarginItemDecoration
+import com.panasetskaia.feature_details.presenation.adapters.ParentCategoryPagerAdapter
+import com.panasetskaia.feature_details.presenation.adapters.PhoneImagesListAdapter
+import com.panasetskaia.feature_details.presenation.viewmodels.DetailsViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.lang.Math.abs
+
 
 class DetailsFragment : Fragment() {
 
@@ -44,8 +50,8 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[DetailsViewModel::class.java]
-        collectFlows()
         setupListeners()
+        collectFlows()
         setupImagePager()
         setupFragmentPager()
     }
@@ -59,7 +65,8 @@ class DetailsFragment : Fragment() {
         phoneImagesListAdapter = PhoneImagesListAdapter()
         binding.viewPagerPhonePics.adapter = phoneImagesListAdapter
         val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
-        val currentItemHorizontalMarginPx = resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+        val currentItemHorizontalMarginPx =
+            resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
         val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
         val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
             page.translationX = -pageTranslationX * position
@@ -77,17 +84,22 @@ class DetailsFragment : Fragment() {
         categoryPagerAdapter = ParentCategoryPagerAdapter(this)
         binding.viewPagerDetailCategories.adapter = categoryPagerAdapter
         val tabTitles = resources.getStringArray(com.panasetskaia.core.R.array.tabs)
-        TabLayoutMediator(binding.tabLayoutDetailCategories, binding.viewPagerDetailCategories) { tab, position ->
+        TabLayoutMediator(
+            binding.tabLayoutDetailCategories,
+            binding.viewPagerDetailCategories
+        ) { tab, position ->
             tab.text = tabTitles[position]
         }.attach()
     }
 
+
+    @SuppressLint("UnsafeOptInUsageError")
     private fun setupListeners() {
         binding.goBackButton.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            //todo: навигация
         }
         binding.toCartButton.setOnClickListener {
-//            replaceWithThisFragment(DetailsFragment::class.java, null)
+            //todo: навигация
         }
         binding.isFav.setOnClickListener {
             binding.notFav.visibility = View.VISIBLE
@@ -103,51 +115,44 @@ class DetailsFragment : Fragment() {
     private fun collectFlows() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.phoneStateFlow.collectLatest {
-                    when (it.status) {
-                        Status.LOADING -> {
-                            binding.progressBar.visibility = View.VISIBLE
-                            binding.bottomLayout.visibility = View.INVISIBLE
-                        }
-                        Status.SUCCESS -> {
-                            phoneImagesListAdapter.submitList(it.data?.images)
-                            with(binding) {
-                                bottomLayout.visibility = View.VISIBLE
-                                progressBar.visibility = View.GONE
-                                phoneName.text = it.data?.title
-                                phoneRatingBar.rating = it.data?.rating ?: 0f
-                                priceForCart.text = it.data?.price.toString() + "$"
-                                if (it.data?.isFavorite==true) {
-                                    notFav.visibility = View.GONE
-                                    isFav.visibility = View.VISIBLE
-                                } else {
-                                    notFav.visibility = View.VISIBLE
-                                    isFav.visibility = View.GONE
+                launch {
+                    viewModel.phoneStateFlow.collectLatest {
+                        when (it.status) {
+                            Status.LOADING -> {
+                                binding.progressBar.visibility = View.VISIBLE
+                                binding.bottomLayout.visibility = View.INVISIBLE
+                            }
+                            Status.SUCCESS -> {
+                                phoneImagesListAdapter.submitList(it.data?.images)
+                                with(binding) {
+                                    bottomLayout.visibility = View.VISIBLE
+                                    progressBar.visibility = View.GONE
+                                    phoneName.text = it.data?.title
+                                    phoneRatingBar.rating = it.data?.rating ?: 0f
+                                    if (it.data?.isFavorite == true) {
+                                        notFav.visibility = View.GONE
+                                        isFav.visibility = View.VISIBLE
+                                    } else {
+                                        notFav.visibility = View.VISIBLE
+                                        isFav.visibility = View.GONE
+                                    }
                                 }
                             }
-                        }
-                        Status.ERROR -> {
-                            binding.progressBar.visibility = View.GONE
-                            //todo: удалить тест, когда починят АПИ
-                            viewModel.setTestingPhone()
-                            Toast.makeText(
-                                this@DetailsFragment.requireContext(),
-                                "Cannot load: ${it.message}. Setting a sample phone",
-                                Toast.LENGTH_LONG
-                            ).show()
+                            Status.ERROR -> {
+                                binding.progressBar.visibility = View.GONE
+                                binding.bottomLayout.visibility = View.INVISIBLE
+                                //удалить тест, когда починят апи
+//                            viewModel.setTestingPhone()
+                                Toast.makeText(
+                                    this@DetailsFragment.requireContext(),
+                                    "Cannot load: ${it.message}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
                         }
                     }
                 }
             }
         }
     }
-
-
-//    private fun replaceWithThisFragment(fragment: Class<out Fragment>, args: Bundle?) {
-//        parentFragmentManager.beginTransaction()
-//            .setReorderingAllowed(true)
-//            .replace(R.id.fcvMain, fragment, args)
-//            .addToBackStack(null)
-//            .commit()
-//    }
 }

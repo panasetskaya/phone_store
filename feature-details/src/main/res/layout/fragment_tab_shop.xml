@@ -26,6 +26,7 @@
         app:layout_constraintEnd_toEndOf="@+id/cpu_ic"
         app:layout_constraintTop_toBottomOf="@+id/cpu_ic"
         tools:text="@string/mock_cpu"
+        android:textSize="11sp"
         android:textColor="@color/darker_gray"/>
 
     <ImageView
@@ -47,6 +48,7 @@
         app:layout_constraintTop_toTopOf="@+id/cpu_name"
         app:layout_constraintBottom_toBottomOf="@+id/cpu_name"
         tools:text="@string/mock_camera"
+        android:textSize="11sp"
         android:textColor="@color/darker_gray"/>
 
     <ImageView
@@ -68,6 +70,7 @@
         app:layout_constraintTop_toTopOf="@+id/camera_details"
         app:layout_constraintBottom_toBottomOf="@+id/camera_details"
         tools:text="@string/mock_ssd"
+        android:textSize="11sp"
         android:textColor="@color/darker_gray"/>
 
     <ImageView
@@ -89,6 +92,7 @@
         app:layout_constraintTop_toTopOf="@+id/ssd_details"
         app:layout_constraintBottom_toBottomOf="@+id/ssd_details"
         tools:text="@string/mock_sd"
+        android:textSize="11sp"
         android:textColor="@color/darker_gray"/>
 
     <TextView
@@ -97,7 +101,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cpu_name"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="24dp"
         android:layout_marginStart="45dp"
         android:text="@string/select_color"
         android:textColor="?colorSecondaryVariant"
@@ -123,7 +127,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertHalf"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_select_color"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@+id/add_to_cart_button"/>
 
     <RadioGroup
         android:id="@+id/radioGroupCapacities"
@@ -137,6 +141,61 @@
         app:layout_constraintStart_toEndOf="@+id/guidelineVertHalf"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_select_color"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@+id/add_to_cart_button"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/add_to_cart_button"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:clickable="true"
+        android:text="@string/done"
+        android:gravity="center"
+        style="@style/PeachButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="?colorSecondary"
+        app:cardCornerRadius="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_add_to_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/add_to_cart"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="45dp"
+                android:textStyle="bold"
+                android:textColor="?colorOnSecondary"
+                />
+
+            <TextView
+                android:id="@+id/price_for_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                tools:text="@string/mock_price"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textStyle="bold"
+                android:textColor="?colorOnSecondary"
+                android:layout_marginEnd="45dp"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

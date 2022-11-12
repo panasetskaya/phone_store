@@ -9,9 +9,11 @@ import com.panasetskaia.core.domain.entities.HotSale
 import com.panasetskaia.core.domain.entities.NetworkResult
 import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.core.domain.usecases.GetBestSellersUseCase
+import com.panasetskaia.core.domain.usecases.GetCartSize
 import com.panasetskaia.core.domain.usecases.GetHotSalesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 internal class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -19,6 +21,7 @@ internal class MainViewModel(application: Application) : AndroidViewModel(applic
     private val repo = PhoneStoreRepositoryImpl(application)
     private val getHots = GetHotSalesUseCase(repo)
     private val getBests = GetBestSellersUseCase(repo)
+    private val getCSize = GetCartSize(repo)
 
     private val _hotSalesStateFlow = MutableStateFlow(
         NetworkResult(Status.LOADING, listOf<HotSale>(), "")
@@ -32,12 +35,26 @@ internal class MainViewModel(application: Application) : AndroidViewModel(applic
     val bestSellersStateFlow: StateFlow<NetworkResult<List<BestSeller>>>
         get() = _bestSellersStateFlow
 
+    private val _cartSizeFlow = MutableStateFlow(
+        0)
+    val cartSizeFlow: StateFlow<Int>
+        get() = _cartSizeFlow
+
     init {
         getNewHotSales()
         getNewBestSellers()
+        getCartSize()
     }
 
-    fun getNewHotSales() {
+    private fun getCartSize() {
+        viewModelScope.launch {
+            getCSize().collect {
+                _cartSizeFlow.value = it
+            }
+        }
+    }
+
+    private fun getNewHotSales() {
         _hotSalesStateFlow.value = NetworkResult.loading()
         viewModelScope.launch {
             getHots().collect {
@@ -55,7 +72,7 @@ internal class MainViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    fun getNewBestSellers() {
+    private fun getNewBestSellers() {
         _bestSellersStateFlow.value = NetworkResult.loading()
         viewModelScope.launch {
             getBests().collect {

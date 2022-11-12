@@ -1,4 +1,4 @@
-package com.panasetskaia.feature_details.adapters
+package com.panasetskaia.feature_details.presenation.adapters
 
 import android.content.Context
 import android.graphics.Rect

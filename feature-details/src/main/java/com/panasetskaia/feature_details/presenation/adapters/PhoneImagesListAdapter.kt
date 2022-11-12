@@ -1,4 +1,4 @@
-package com.panasetskaia.feature_details.adapters
+package com.panasetskaia.feature_details.presenation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.panasetskaia.feature_details.databinding.CarouselItemLayoutBinding
 
-class PhoneImagesListAdapter: ListAdapter<String, PhoneImagesListAdapter.PhoneViewholder>(StringDiffUtil()) {
+class PhoneImagesListAdapter: ListAdapter<String, PhoneImagesListAdapter.PhoneViewholder>(
+    StringDiffUtil()
+) {
 
     class PhoneViewholder(val binding: CarouselItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)

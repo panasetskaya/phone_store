@@ -20,4 +20,6 @@ interface PhoneStoreRepository {
 
     suspend fun getCart(): Flow<List<Phone>>
 
+    suspend fun getCartSize(): Flow<Int>
+
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_gray"
-    tools:context=".ui.DetailsFragment">
+    tools:context=".presenation.ui.DetailsFragment">
 
     <ImageView
         android:id="@+id/go_back_button"
@@ -171,65 +171,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tab_layout_detail_categories"
-            app:layout_constraintBottom_toTopOf="@+id/add_to_cart_button"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:clipToPadding="false"
             android:paddingLeft="0dp"
             android:paddingRight="0dp"/>
 
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/add_to_cart_button"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:clickable="true"
-            android:text="@string/done"
-            android:gravity="center"
-            style="@style/PeachButton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:backgroundTint="?colorSecondary"
-            app:cardCornerRadius="10dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/tv_add_to_cart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="@string/add_to_cart"
-                    android:gravity="center"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="45dp"
-                    android:textStyle="bold"
-                    android:textColor="?colorOnSecondary"
-                    />
-
-                <TextView
-                    android:id="@+id/price_for_cart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    tools:text="@string/mock_price"
-                    android:gravity="center"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:textStyle="bold"
-                    android:textColor="?colorOnSecondary"
-                    android:layout_marginEnd="45dp"
-                    />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
