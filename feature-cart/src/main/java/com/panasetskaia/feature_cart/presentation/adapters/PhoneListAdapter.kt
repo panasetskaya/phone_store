@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.panasetskaia.core.domain.entities.Phone
+import com.panasetskaia.core.utils.navigate
 import com.panasetskaia.feature_cart.databinding.CartItemLayoutBinding
+import com.panasetskaia.feature_cart.presentation.ui.CartFragment
 import com.panasetskaia.feature_cart.presentation.viewmodels.CartViewModel
 
-class PhoneListAdapter(private val viewModel: CartViewModel): ListAdapter<Phone, PhoneListAdapter.PhoneViewHolder>(
+class PhoneListAdapter(private val viewModel: CartViewModel, private val fragment: CartFragment): ListAdapter<Phone, PhoneListAdapter.PhoneViewHolder>(
     PhoneDiffUtil()
 ) {
 
@@ -50,6 +52,9 @@ class PhoneListAdapter(private val viewModel: CartViewModel): ListAdapter<Phone,
             tvItemQuantity.text = item.quantity.toString()
             tvCartItemTitle.text = item.title
             tvCartItemPrice.text = "$"+ "${item.price?.times(item.quantity) ?: 0}" + ".00"
+            imageViewCardView.setOnClickListener {
+                fragment.navigate(fragment.cartNavCommandProvider.toDetails,fragment.cartNavCommandProvider.navHost)
+            }
             Glide.with(root.context).load(item.images?.get(0))
                 .placeholder(com.panasetskaia.core.R.drawable.img)
                 .into(imageViewCartItem)

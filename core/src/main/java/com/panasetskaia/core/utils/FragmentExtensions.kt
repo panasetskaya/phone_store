@@ -13,3 +13,12 @@ fun Fragment.navigate(navCommand: NavCommand, hostId: Int? = null) {
     }
     navController.navigate(navCommand.action, navCommand.args, navCommand.navOptions)
 }
+
+fun Fragment.goBack(hostId: Int? = null) {
+    val navController = if (hostId == null) {
+        findNavController()
+    } else {
+        Navigation.findNavController(requireActivity(), hostId)
+    }
+    navController.popBackStack()
+}

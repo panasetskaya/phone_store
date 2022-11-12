@@ -7,6 +7,7 @@ import com.panasetskaia.core.domain.entities.Phone
 import com.panasetskaia.core.domain.usecases.AddToCartUseCase
 import com.panasetskaia.core.domain.usecases.DeleteFromCartUseCase
 import com.panasetskaia.core.domain.usecases.GetCartUseCase
+import com.panasetskaia.feature_cart.navigation.CartNavCommandProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -17,7 +18,8 @@ class CartViewModel @Inject constructor(
     application: Application,
     private val add: AddToCartUseCase,
     private val delete: DeleteFromCartUseCase,
-    private val getCart: GetCartUseCase
+    private val getCart: GetCartUseCase,
+    private val cartNavCommandProvider: CartNavCommandProvider
 ) : AndroidViewModel(application) {
 
     private val _cartItemsFlow = MutableStateFlow(listOf<Phone>())
@@ -46,5 +48,9 @@ class CartViewModel @Inject constructor(
         viewModelScope.launch {
             add(phone)
         }
+    }
+
+    fun goToDetails() {
+
     }
 }

@@ -12,11 +12,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.core.navigation.NavCommand
 import com.panasetskaia.core.utils.ViewModelFactory
+import com.panasetskaia.core.utils.goBack
 import com.panasetskaia.core.utils.navigate
 import com.panasetskaia.feature_details.R
 import com.panasetskaia.feature_details.databinding.FragmentDetailsBinding
@@ -114,7 +116,7 @@ class DetailsFragment : Fragment() {
     @SuppressLint("UnsafeOptInUsageError")
     private fun setupListeners() {
         binding.goBackButton.setOnClickListener {
-            //todo: навигация
+            goBack(detailsNavCommandProvider.navHost)
         }
         binding.toCartButton.setOnClickListener {
             navigate(detailsNavCommandProvider.toCart, detailsNavCommandProvider.navHost)

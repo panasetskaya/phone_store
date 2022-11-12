@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.panasetskaia.core.domain.entities.Phone
 import com.panasetskaia.core.utils.ViewModelFactory
+import com.panasetskaia.core.utils.goBack
 import com.panasetskaia.feature_cart.databinding.FragmentCartBinding
 import com.panasetskaia.feature_cart.di.CartComponentProvider
 import com.panasetskaia.feature_cart.navigation.CartNavCommandProvider
@@ -69,12 +70,12 @@ class CartFragment : Fragment() {
 
     private fun setListeners() {
         binding.goBackButton.setOnClickListener {
-
+            goBack(cartNavCommandProvider.navHost)
         }
     }
 
     private fun setAdapter() {
-        phoneListAdapter = PhoneListAdapter(viewModel)
+        phoneListAdapter = PhoneListAdapter(viewModel, this)
         phoneListAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         with(binding.recyclerViewCartItems) {
