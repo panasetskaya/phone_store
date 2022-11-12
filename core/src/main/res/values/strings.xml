@@ -59,6 +59,4 @@
         <item>Features</item>
     </string-array>
     <string name="price_for_cart">$%1$d.00"</string>
-
-
 </resources>

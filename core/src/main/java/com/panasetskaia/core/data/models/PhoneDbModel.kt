@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.panasetskaia.core.data.database.CartConverters
 
 @Entity
-internal data class PhoneDbModel (
+data class PhoneDbModel (
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val isFavorite: Boolean? = false,

@@ -3,7 +3,7 @@ package com.panasetskaia.core.data.network
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-internal object ApiFactory {
+object ApiFactory {
 
     private const val BASE_URL = "https://run.mocky.io/"
 
