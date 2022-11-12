@@ -50,9 +50,6 @@ class PhoneListAdapter(private val viewModel: CartViewModel): ListAdapter<Phone,
             tvItemQuantity.text = item.quantity.toString()
             tvCartItemTitle.text = item.title
             tvCartItemPrice.text = "$"+ "${item.price?.times(item.quantity) ?: 0}" + ".00"
-            imageViewCardView.setOnClickListener{
-                viewModel.goToDetails()
-            }
             Glide.with(root.context).load(item.images?.get(0))
                 .placeholder(com.panasetskaia.core.R.drawable.img)
                 .into(imageViewCartItem)

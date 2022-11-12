@@ -15,7 +15,7 @@ import dagger.BindsInstance
 import dagger.Component
 
 @StoreAppScope
-@Component(modules = [CoreModule::class, CartModule::class, DetailsModule::class, MainModule::class])
+@Component(modules = [CoreModule::class, CartModule::class, DetailsModule::class, MainModule::class, NavigationModule::class])
 interface AppComponent: CartComponent, DetailsComponent {
 
     override fun injectDetailsFragment(fragment: DetailsFragment)
@@ -30,5 +30,4 @@ interface AppComponent: CartComponent, DetailsComponent {
     interface AppComponentFactory {
         fun create(@BindsInstance application: Application): AppComponent
     }
-
 }

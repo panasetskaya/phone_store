@@ -47,9 +47,4 @@ class CartViewModel @Inject constructor(
             add(phone)
         }
     }
-
-    fun goToDetails() {
-
-    }
-
 }

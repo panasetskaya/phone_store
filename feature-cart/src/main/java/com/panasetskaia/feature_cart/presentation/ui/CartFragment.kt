@@ -15,6 +15,7 @@ import com.panasetskaia.core.domain.entities.Phone
 import com.panasetskaia.core.utils.ViewModelFactory
 import com.panasetskaia.feature_cart.databinding.FragmentCartBinding
 import com.panasetskaia.feature_cart.di.CartComponentProvider
+import com.panasetskaia.feature_cart.navigation.CartNavCommandProvider
 import com.panasetskaia.feature_cart.presentation.adapters.PhoneListAdapter
 import com.panasetskaia.feature_cart.presentation.viewmodels.CartViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -25,6 +26,9 @@ class CartFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var cartNavCommandProvider: CartNavCommandProvider
 
     val viewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[CartViewModel::class.java]
@@ -65,7 +69,7 @@ class CartFragment : Fragment() {
 
     private fun setListeners() {
         binding.goBackButton.setOnClickListener {
-            parentFragmentManager.popBackStack()
+
         }
     }
 

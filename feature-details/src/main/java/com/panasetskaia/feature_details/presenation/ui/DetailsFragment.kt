@@ -15,10 +15,13 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.panasetskaia.core.domain.entities.Status
+import com.panasetskaia.core.navigation.NavCommand
 import com.panasetskaia.core.utils.ViewModelFactory
+import com.panasetskaia.core.utils.navigate
 import com.panasetskaia.feature_details.R
 import com.panasetskaia.feature_details.databinding.FragmentDetailsBinding
 import com.panasetskaia.feature_details.di.DetailsComponentProvider
+import com.panasetskaia.feature_details.navigation.DetailsNavCommandProvider
 import com.panasetskaia.feature_details.presenation.adapters.HorizontalMarginItemDecoration
 import com.panasetskaia.feature_details.presenation.adapters.ParentCategoryPagerAdapter
 import com.panasetskaia.feature_details.presenation.adapters.PhoneImagesListAdapter
@@ -33,6 +36,9 @@ class DetailsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var detailsNavCommandProvider: DetailsNavCommandProvider
 
     val viewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[DetailsViewModel::class.java]
@@ -111,7 +117,7 @@ class DetailsFragment : Fragment() {
             //todo: навигация
         }
         binding.toCartButton.setOnClickListener {
-            //todo: навигация
+            navigate(detailsNavCommandProvider.toCart, detailsNavCommandProvider.navHost)
         }
         binding.isFav.setOnClickListener {
             binding.notFav.visibility = View.VISIBLE
