@@ -17,4 +17,7 @@ internal interface CartDao {
     @Query("DELETE FROM phonedbmodel WHERE id=:thisId")
     suspend fun deleteFromCart(thisId: Int)
 
+    @Query("SELECT COUNT(*) FROM phonedbmodel")
+    fun getCartSize(): Flow<Int>
+
 }

@@ -7,4 +7,6 @@ import com.panasetskaia.phonestore.R
 class CartNavCommandProviderImpl: CartNavCommandProvider {
     override val toDetails: NavCommand
         get() = NavCommand(R.id.action_cartFragment_to_detailsFragment)
+    override val navHost: Int
+        get() = R.id.fcvMain
 }

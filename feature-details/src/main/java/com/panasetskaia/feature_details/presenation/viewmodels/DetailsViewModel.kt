@@ -1,6 +1,7 @@
 package com.panasetskaia.feature_details.presenation.viewmodels
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.panasetskaia.core.data.PhoneStoreRepositoryImpl
@@ -8,9 +9,13 @@ import com.panasetskaia.core.domain.entities.NetworkResult
 import com.panasetskaia.core.domain.entities.Phone
 import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.core.domain.usecases.AddToCartUseCase
+import com.panasetskaia.core.domain.usecases.GetCartSize
 import com.panasetskaia.core.domain.usecases.GetSinglePhoneUseCase
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class DetailsViewModel(application: Application) : AndroidViewModel(application) {
@@ -19,11 +24,8 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
     private val getPhone = GetSinglePhoneUseCase(repo)
     private val add = AddToCartUseCase(repo)
 
-    private var chosenColor: String? = null
-    private var chosenCapacity: String? = null
-
     private val _phoneStateFlow = MutableStateFlow(
-        NetworkResult(Status.LOADING, Phone(), "")
+        NetworkResult(Status.LOADING, Phone(0), "")
     )
     val phoneStateFlow: StateFlow<NetworkResult<Phone>>
         get() = _phoneStateFlow
@@ -32,19 +34,14 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
         getNewPhone()
     }
 
-    fun addToCart() {
+    fun addToCart(newPhone: Phone) {
         viewModelScope.launch {
-            val oldPhone = phoneStateFlow.value.data
-            var oldId = oldPhone?.id ?: 0
-            val newPhone = oldPhone?.copy(
-                id = ++oldId,
-                quantity = 1,
-                chosenCapacity = chosenCapacity,
-                chosenColor = chosenColor
-            )
-            newPhone?.let { add(it) }
+                add(newPhone)
+            }
         }
-    }
+
+
+
 
     fun getNewPhone() {
         _phoneStateFlow.value = NetworkResult.loading()
@@ -65,16 +62,9 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun changeColor(color: String) {
-        chosenColor = color
-    }
-
-    fun changeCapacity(capacity: String) {
-        chosenCapacity = capacity
-    }
-
     fun setTestingPhone() {
         val phone = Phone(
+            0,
             images = listOf(
                 "https://www.notebookcheck-ru.com/uploads/tx_nbc2/OppoFindX2Pro.JPG",
                 "https://www.ixbt.com/img/n1/news/2020/1/6/oppo-find-x2-pro-live-images-71_large.jpg"

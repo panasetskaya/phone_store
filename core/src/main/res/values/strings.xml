@@ -36,6 +36,7 @@
     <string name="mock_camera">108 + 12mp</string>
     <string name="mock_ssd">8 GB</string>
     <string name="mock_sd">256 GB</string>
+    <string name="gb">%1$s GB</string>
     <string name="title_activity_basic">BasicActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -57,6 +58,7 @@
         <item>Details</item>
         <item>Features</item>
     </string-array>
+    <string name="price_for_cart">$%1$d.00"</string>
 
 
 </resources>

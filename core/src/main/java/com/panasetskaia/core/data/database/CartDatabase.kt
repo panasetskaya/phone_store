@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.panasetskaia.core.data.models.PhoneDbModel
 
-@Database(entities = [PhoneDbModel::class], version = 1, exportSchema = false)
+@Database(entities = [PhoneDbModel::class], version = 3, exportSchema = false)
 @TypeConverters(CartConverters::class)
 internal abstract class CartDatabase : RoomDatabase() {
 

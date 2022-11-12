@@ -85,4 +85,7 @@ class PhoneStoreRepositoryImpl(application: Application) : PhoneStoreRepository 
         }
     }
 
+    override suspend fun getCartSize(): Flow<Int> {
+        return db.cartDao().getCartSize()
+    }
 }

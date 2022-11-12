@@ -8,7 +8,7 @@ import com.panasetskaia.core.data.database.CartConverters
 @Entity
 internal data class PhoneDbModel (
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
     val isFavorite: Boolean? = false,
     val CPU: String? = null,
     val camera: String? = null,

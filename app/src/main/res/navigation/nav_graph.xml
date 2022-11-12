@@ -27,6 +27,7 @@
         tools:layout="@layout/fragment_details">
         <action
             android:id="@+id/action_detailsFragment_to_cartFragment"
+            app:popUpTo="@id/detailsFragment"
             app:destination="@id/cartFragment" />
     </fragment>
 
@@ -37,6 +38,7 @@
         tools:layout="@layout/fragment_cart">
         <action
             android:id="@+id/action_cartFragment_to_detailsFragment"
+            app:popUpTo="@id/cartFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
 

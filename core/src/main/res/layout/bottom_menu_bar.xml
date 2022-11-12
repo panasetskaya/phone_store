@@ -8,7 +8,8 @@
     app:menu="@menu/bottom_nav_menu"
     android:background="@drawable/nav_background_curved"
     app:itemIconTint="@color/white"
-    app:labelVisibilityMode="unlabeled">
+    app:labelVisibilityMode="unlabeled"
+    >
 
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
