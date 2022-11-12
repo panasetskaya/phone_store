@@ -15,6 +15,7 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/small_background_curved"
         android:padding="8dp"
+        android:contentDescription="@string/content_desc"
         android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,6 +30,7 @@
         android:backgroundTint="@color/peach_color"
         android:padding="8dp"
         android:src="@drawable/ic_cart"
+        android:contentDescription="@string/content_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -98,6 +100,7 @@
             android:background="@drawable/small_background_curved"
             android:padding="8dp"
             android:src="@drawable/ic_heart"
+            android:contentDescription="@string/content_desc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/phone_name"
             app:layout_constraintBottom_toBottomOf="@+id/phone_name"/>
@@ -111,6 +114,7 @@
             android:padding="8dp"
             android:src="@drawable/ic_baseline_favorite_24"
             app:tint="?colorOnSecondary"
+            android:contentDescription="@string/content_desc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/phone_name"
             app:layout_constraintBottom_toBottomOf="@+id/phone_name"/>

@@ -11,9 +11,10 @@ import com.panasetskaia.feature_cart.databinding.CartItemLayoutBinding
 import com.panasetskaia.feature_cart.presentation.ui.CartFragment
 import com.panasetskaia.feature_cart.presentation.viewmodels.CartViewModel
 
-class PhoneListAdapter(private val viewModel: CartViewModel, private val fragment: CartFragment): ListAdapter<Phone, PhoneListAdapter.PhoneViewHolder>(
-    PhoneDiffUtil()
-) {
+class PhoneListAdapter(private val viewModel: CartViewModel, private val fragment: CartFragment) :
+    ListAdapter<Phone, PhoneListAdapter.PhoneViewHolder>(
+        PhoneDiffUtil()
+    ) {
 
     class PhoneViewHolder(val binding: CartItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -22,7 +23,8 @@ class PhoneListAdapter(private val viewModel: CartViewModel, private val fragmen
         val binding = CartItemLayoutBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false)
+            false
+        )
         return PhoneViewHolder(binding)
     }
 
@@ -51,9 +53,16 @@ class PhoneListAdapter(private val viewModel: CartViewModel, private val fragmen
             }
             tvItemQuantity.text = item.quantity.toString()
             tvCartItemTitle.text = item.title
-            tvCartItemPrice.text = "$"+ "${item.price?.times(item.quantity) ?: 0}" + ".00"
+            val totalQuantity = item.price?.times(item.quantity)
+            tvCartItemPrice.text = fragment.resources.getString(
+                com.panasetskaia.core.R.string.price_for_cart,
+                totalQuantity
+            )
             imageViewCardView.setOnClickListener {
-                fragment.navigate(fragment.cartNavCommandProvider.toDetails,fragment.cartNavCommandProvider.navHost)
+                fragment.navigate(
+                    fragment.cartNavCommandProvider.toDetails,
+                    fragment.cartNavCommandProvider.navHost
+                )
             }
             Glide.with(root.context).load(item.images?.get(0))
                 .placeholder(com.panasetskaia.core.R.drawable.img)

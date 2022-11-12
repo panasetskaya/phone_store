@@ -31,11 +31,11 @@ class CartFragment : Fragment() {
     @Inject
     lateinit var cartNavCommandProvider: CartNavCommandProvider
 
-    val viewModel by lazy {
+    private val viewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[CartViewModel::class.java]
     }
 
-    lateinit var phoneListAdapter: PhoneListAdapter
+    private lateinit var phoneListAdapter: PhoneListAdapter
 
     private var _binding: FragmentCartBinding? = null
     private val binding: FragmentCartBinding

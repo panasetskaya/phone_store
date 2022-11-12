@@ -18,7 +18,6 @@ import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.core.navigation.NavCommand
 import com.panasetskaia.core.utils.ViewModelFactory
 import com.panasetskaia.core.utils.navigate
-import com.panasetskaia.feature_cart.di.CartComponentProvider
 import com.panasetskaia.phonestore.R
 import com.panasetskaia.phonestore.application.StoreApplication
 import com.panasetskaia.phonestore.databinding.FragmentMainBinding
@@ -71,7 +70,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setupRecyclers() {
-        bestSellersListAdapter = BestSellersListAdapter()
+        bestSellersListAdapter = BestSellersListAdapter(this)
         bestSellersListAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         with(binding.recyclerViewBestSellers) {
@@ -95,33 +94,14 @@ class MainFragment : Fragment() {
         binding.filterButton.setOnClickListener {
             showBottomSheetDialog()
         }
-        binding.seeAllBestSellersTv.setOnClickListener {
-            Toast.makeText(
-                this@MainFragment.requireContext(),
-                "See more Best Sellers",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-        binding.seeAllTv.setOnClickListener {
-            Toast.makeText(
-                this@MainFragment.requireContext(),
-                "View all categories",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-        binding.seeAllHotSalesTv.setOnClickListener {
-            Toast.makeText(
-                this@MainFragment.requireContext(),
-                "See more Hot Sales",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
     }
 
     private fun setupBottomBar() {
-        val badge = binding.mainBottomToolbar.root.getOrCreateBadge(com.panasetskaia.core.R.id.to_cart)
-        badge.backgroundColor = ContextCompat.getColor(this.requireContext(), com.panasetskaia.core.R.color.peach_color)
-        binding.mainBottomToolbar.root.setOnNavigationItemSelectedListener{
+        val badge =
+            binding.mainBottomToolbar.root.getOrCreateBadge(com.panasetskaia.core.R.id.to_cart)
+        badge.backgroundColor =
+            ContextCompat.getColor(this.requireContext(), com.panasetskaia.core.R.color.peach_color)
+        binding.mainBottomToolbar.root.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 com.panasetskaia.core.R.id.to_cart -> {
                     navigate(NavCommand(R.id.action_mainFragment_to_cartFragment), R.id.fcvMain)
@@ -134,14 +114,15 @@ class MainFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                     true
-                } else -> {
-                Toast.makeText(
-                    this@MainFragment.requireContext(),
-                    "Go to your favourites",
-                    Toast.LENGTH_SHORT
-                ).show()
-                true
-            }
+                }
+                else -> {
+                    Toast.makeText(
+                        this@MainFragment.requireContext(),
+                        "Go to your favourites",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    true
+                }
             }
         }
     }
@@ -188,8 +169,9 @@ class MainFragment : Fragment() {
                 }
                 launch {
                     viewModel.cartSizeFlow.collectLatest {
-                        val badge = binding.mainBottomToolbar.root.getBadge(com.panasetskaia.core.R.id.to_cart)
-                        if (it>0) {
+                        val badge =
+                            binding.mainBottomToolbar.root.getBadge(com.panasetskaia.core.R.id.to_cart)
+                        if (it > 0) {
                             badge?.isVisible = true
                             badge?.number = it
                         } else {

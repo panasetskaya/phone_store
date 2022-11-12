@@ -1,6 +1,5 @@
 package com.panasetskaia.feature_details.presenation.ui
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,11 +11,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.Navigation
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.panasetskaia.core.domain.entities.Status
-import com.panasetskaia.core.navigation.NavCommand
 import com.panasetskaia.core.utils.ViewModelFactory
 import com.panasetskaia.core.utils.goBack
 import com.panasetskaia.core.utils.navigate
@@ -90,7 +87,7 @@ class DetailsFragment : Fragment() {
         val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
         val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
             page.translationX = -pageTranslationX * position
-            page.scaleY = 1 - (0.25f * abs(position))
+            page.scaleY = 1 - (0.25f * kotlin.math.abs(position))
         }
         binding.viewPagerPhonePics.setPageTransformer(pageTransformer)
         val itemDecoration = HorizontalMarginItemDecoration(
@@ -112,8 +109,6 @@ class DetailsFragment : Fragment() {
         }.attach()
     }
 
-
-    @SuppressLint("UnsafeOptInUsageError")
     private fun setupListeners() {
         binding.goBackButton.setOnClickListener {
             goBack(detailsNavCommandProvider.navHost)
@@ -161,11 +156,9 @@ class DetailsFragment : Fragment() {
                             Status.ERROR -> {
                                 binding.progressBar.visibility = View.GONE
                                 binding.bottomLayout.visibility = View.INVISIBLE
-                                //удалить тест, когда починят апи
-//                            viewModel.setTestingPhone()
                                 Toast.makeText(
                                     this@DetailsFragment.requireContext(),
-                                    "Cannot load: ${it.message}",
+                                    it.message,
                                     Toast.LENGTH_LONG
                                 ).show()
                             }

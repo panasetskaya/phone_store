@@ -13,8 +13,10 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.panasetskaia.core.domain.entities.BestSeller
 import com.panasetskaia.phonestore.databinding.BestSellerCardBinding
+import com.panasetskaia.phonestore.presentation.ui.MainFragment
 
-class BestSellersListAdapter: ListAdapter<BestSeller, BestSellersListAdapter.BestSellersViewHolder>(BestSellersDiffUtil()) {
+class BestSellersListAdapter(private val fragment: MainFragment) :
+    ListAdapter<BestSeller, BestSellersListAdapter.BestSellersViewHolder>(BestSellersDiffUtil()) {
 
     var onItemClickListener: ((BestSeller) -> Unit)? = null
 
@@ -22,9 +24,11 @@ class BestSellersListAdapter: ListAdapter<BestSeller, BestSellersListAdapter.Bes
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BestSellersViewHolder {
-        val binding = BestSellerCardBinding.inflate(LayoutInflater.from(parent.context),
-                parent,
-                false)
+        val binding = BestSellerCardBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return BestSellersViewHolder(binding)
     }
 
@@ -37,21 +41,33 @@ class BestSellersListAdapter: ListAdapter<BestSeller, BestSellersListAdapter.Bes
         with(holder.binding) {
             Glide.with(root.context).load(item.picUrl)
                 .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: com.bumptech.glide.request.target.Target<Drawable>?, p3: Boolean): Boolean {
+                    override fun onLoadFailed(
+                        p0: GlideException?,
+                        p1: Any?,
+                        p2: com.bumptech.glide.request.target.Target<Drawable>?,
+                        p3: Boolean
+                    ): Boolean {
                         return false
                     }
-                    override fun onResourceReady(p0: Drawable?, p1: Any?, p2: com.bumptech.glide.request.target.Target<Drawable>?, p3: DataSource?, p4: Boolean): Boolean {
+
+                    override fun onResourceReady(
+                        p0: Drawable?,
+                        p1: Any?,
+                        p2: com.bumptech.glide.request.target.Target<Drawable>?,
+                        p3: DataSource?,
+                        p4: Boolean
+                    ): Boolean {
                         bestsellerProgressBar.visibility = View.GONE
                         return false
                     }
                 })
                 .placeholder(com.panasetskaia.core.R.drawable.img)
                 .into(bestsellerImage)
-            bestsellerActualPrice.text = item.discountPrice.toString() + "$"
-            bestsellerOldPrice.text = item.noDiscountPrice.toString() + "$"
+            bestsellerActualPrice.text = fragment.resources.getString(com.panasetskaia.core.R.string.price_with_dollar,item.discountPrice)
+            bestsellerOldPrice.text = fragment.resources.getString(com.panasetskaia.core.R.string.price_with_dollar,item.noDiscountPrice)
             bestsellerOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             bestsellerTitle.text = item.title
-            if (item.isFav==true) {
+            if (item.isFav == true) {
                 isFavorite.visibility = View.VISIBLE
                 notFavorite.visibility = View.GONE
             } else {

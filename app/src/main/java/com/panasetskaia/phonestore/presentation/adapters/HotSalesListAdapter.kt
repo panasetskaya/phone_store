@@ -41,11 +41,23 @@ class HotSalesListAdapter :
             Glide.with(root.context)
                 .load(item.picUrl)
                 .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: com.bumptech.glide.request.target.Target<Drawable>?, p3: Boolean): Boolean {
+                    override fun onLoadFailed(
+                        p0: GlideException?,
+                        p1: Any?,
+                        p2: com.bumptech.glide.request.target.Target<Drawable>?,
+                        p3: Boolean
+                    ): Boolean {
                         hotSalesProgressBar.visibility = View.GONE
                         return false
                     }
-                    override fun onResourceReady(p0: Drawable?, p1: Any?, p2: com.bumptech.glide.request.target.Target<Drawable>?, p3: DataSource?, p4: Boolean): Boolean {
+
+                    override fun onResourceReady(
+                        p0: Drawable?,
+                        p1: Any?,
+                        p2: com.bumptech.glide.request.target.Target<Drawable>?,
+                        p3: DataSource?,
+                        p4: Boolean
+                    ): Boolean {
                         hotSalesProgressBar.visibility = View.GONE
                         return false
                     }

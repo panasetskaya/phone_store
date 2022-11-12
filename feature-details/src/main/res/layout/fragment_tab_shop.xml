@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/cpu_icon"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/content_desc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/camera_ic"
@@ -34,6 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/camera_icon"
+        android:contentDescription="@string/content_desc"
         app:layout_constraintStart_toEndOf="@+id/cpu_ic"
         app:layout_constraintTop_toTopOf="@+id/cpu_ic"
         app:layout_constraintBottom_toBottomOf="@+id/cpu_ic"
@@ -56,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ssd_icon"
+        android:contentDescription="@string/content_desc"
         app:layout_constraintStart_toEndOf="@+id/camera_ic"
         app:layout_constraintTop_toTopOf="@+id/camera_ic"
         app:layout_constraintBottom_toBottomOf="@+id/camera_ic"
@@ -78,6 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/sd_icon"
+        android:contentDescription="@string/content_desc"
         app:layout_constraintStart_toEndOf="@+id/ssd_ic"
         app:layout_constraintTop_toTopOf="@+id/ssd_ic"
         app:layout_constraintBottom_toBottomOf="@+id/ssd_ic"
@@ -101,7 +105,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cpu_name"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="45dp"
         android:text="@string/select_color"
         android:textColor="?colorSecondaryVariant"
@@ -115,39 +119,81 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
-    <RadioGroup
-        android:id="@+id/radioGroupColors"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
-        android:gravity="center"
+        android:layout_gravity = "center"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertHalf"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_select_color"
-        app:layout_constraintBottom_toTopOf="@+id/add_to_cart_button"/>
+        app:layout_constraintBottom_toTopOf="@+id/add_to_cart_button">
 
-    <RadioGroup
-        android:id="@+id/radioGroupCapacities"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity = "center"
+            android:gravity="center">
+
+            <RadioGroup
+                android:id="@+id/radioGroupColors"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="30dp"
+                android:orientation="horizontal"
+                android:layout_gravity = "center"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_gravity = "center"
         app:layout_constraintStart_toEndOf="@+id/guidelineVertHalf"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_select_color"
-        app:layout_constraintBottom_toTopOf="@+id/add_to_cart_button"/>
+        app:layout_constraintBottom_toTopOf="@+id/add_to_cart_button">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity = "center"
+            android:gravity="center">
+            <RadioGroup
+                android:id="@+id/radioGroupCapacities"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingEnd="30dp"
+                android:layout_gravity = "center"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/add_to_cart_button"
         android:layout_width="0dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="25dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:clickable="true"

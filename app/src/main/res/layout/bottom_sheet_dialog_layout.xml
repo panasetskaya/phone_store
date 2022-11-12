@@ -21,6 +21,7 @@
         android:background="@drawable/small_background_curved"
         android:padding="8dp"
         android:src="@drawable/ic_baseline_close_24"
+        android:contentDescription="@string/content_desc"
         android:layout_marginStart="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/apply_filters_button"

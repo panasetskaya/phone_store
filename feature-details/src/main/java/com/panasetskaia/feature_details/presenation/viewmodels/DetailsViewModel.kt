@@ -37,7 +37,7 @@ class DetailsViewModel @Inject constructor(
     }
 
 
-    fun getNewPhone() {
+    private fun getNewPhone() {
         _phoneStateFlow.value = NetworkResult.loading()
         viewModelScope.launch {
             getPhone()
@@ -54,25 +54,5 @@ class DetailsViewModel @Inject constructor(
                     }
                 }
         }
-    }
-
-    fun setTestingPhone() {
-        val phone = Phone(
-            0,
-            images = listOf(
-                "https://www.notebookcheck-ru.com/uploads/tx_nbc2/OppoFindX2Pro.JPG",
-                "https://www.ixbt.com/img/n1/news/2020/1/6/oppo-find-x2-pro-live-images-71_large.jpg"
-            ),
-            title = "Gorgeous SmartPhone",
-            price = 2222,
-            rating = 4.3f,
-            camera = "mock camera",
-            CPU = "mock cpu",
-            sd = "mock sd",
-            ssd = "mock ssd",
-            capacities = listOf("256", "128", "133", "000"),
-            colors = listOf("#eb4034", "#e8b8b5", "#d6cd22")
-        )
-        _phoneStateFlow.value = NetworkResult(Status.SUCCESS, phone, null)
     }
 }
