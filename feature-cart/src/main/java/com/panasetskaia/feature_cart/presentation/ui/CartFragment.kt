@@ -1,32 +1,47 @@
 package com.panasetskaia.feature_cart.presentation.ui
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.panasetskaia.core.domain.entities.Phone
-import com.panasetskaia.feature_cart.presentation.adapters.PhoneListAdapter
+import com.panasetskaia.core.utils.ViewModelFactory
 import com.panasetskaia.feature_cart.databinding.FragmentCartBinding
-import com.panasetskaia.feature_cart.navigation.CartNavCommandProvider
+import com.panasetskaia.feature_cart.di.CartComponentProvider
+import com.panasetskaia.feature_cart.presentation.adapters.PhoneListAdapter
 import com.panasetskaia.feature_cart.presentation.viewmodels.CartViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class CartFragment : Fragment() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[CartViewModel::class.java]
+    }
+
     lateinit var phoneListAdapter: PhoneListAdapter
-    lateinit var viewModel: CartViewModel
 
     private var _binding: FragmentCartBinding? = null
     private val binding: FragmentCartBinding
         get() = _binding ?: throw RuntimeException("FragmentCartBinding is null")
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as CartComponentProvider)
+            .getCartComponent()
+            .injectCartFragment(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +53,6 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[CartViewModel::class.java]
         setAdapter()
         collectFlows()
         setListeners()
@@ -69,7 +83,7 @@ class CartFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.cartItemsFlow.collectLatest {
                     phoneListAdapter.submitList(it)
-                    binding.tvSum.text = "$" + getPriceSum(it).toString() + ".00"
+                    binding.tvSum.text = resources.getString(com.panasetskaia.core.R.string.price_for_cart,getPriceSum(it))
                 }
             }
         }

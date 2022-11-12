@@ -1,5 +1,6 @@
 package com.panasetskaia.feature_details.presenation.ui
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -18,15 +19,23 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.panasetskaia.core.domain.entities.Phone
 import com.panasetskaia.core.domain.entities.Status
+import com.panasetskaia.core.utils.ViewModelFactory
 import com.panasetskaia.feature_details.R
 import com.panasetskaia.feature_details.databinding.FragmentTabShopBinding
+import com.panasetskaia.feature_details.di.DetailsComponentProvider
 import com.panasetskaia.feature_details.presenation.viewmodels.DetailsViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class TabShopFragment : Fragment() {
 
-    private lateinit var viewModel: DetailsViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[DetailsViewModel::class.java]
+    }
 
     private var currentPhone = Phone(0)
     private var colors = listOf<String>()
@@ -35,6 +44,13 @@ class TabShopFragment : Fragment() {
     private var _binding: FragmentTabShopBinding? = null
     private val binding: FragmentTabShopBinding
         get() = _binding ?: throw RuntimeException("FragmentTabShopBinding is null")
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as DetailsComponentProvider)
+            .getDetailsComponent()
+            .injectTabShopFragment(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +62,6 @@ class TabShopFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[DetailsViewModel::class.java]
         collectFlows()
         setListeners()
     }

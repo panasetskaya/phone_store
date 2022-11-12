@@ -3,7 +3,6 @@ package com.panasetskaia.phonestore.presentation.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.panasetskaia.core.data.PhoneStoreRepositoryImpl
 import com.panasetskaia.core.domain.entities.BestSeller
 import com.panasetskaia.core.domain.entities.HotSale
 import com.panasetskaia.core.domain.entities.NetworkResult
@@ -13,15 +12,15 @@ import com.panasetskaia.core.domain.usecases.GetCartSize
 import com.panasetskaia.core.domain.usecases.GetHotSalesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-internal class MainViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repo = PhoneStoreRepositoryImpl(application)
-    private val getHots = GetHotSalesUseCase(repo)
-    private val getBests = GetBestSellersUseCase(repo)
-    private val getCSize = GetCartSize(repo)
+class MainViewModel @Inject constructor(
+    application: Application,
+    private val getHots: GetHotSalesUseCase,
+    private val getBests: GetBestSellersUseCase,
+    private val getCSize: GetCartSize
+) : AndroidViewModel(application) {
 
     private val _hotSalesStateFlow = MutableStateFlow(
         NetworkResult(Status.LOADING, listOf<HotSale>(), "")
@@ -36,7 +35,8 @@ internal class MainViewModel(application: Application) : AndroidViewModel(applic
         get() = _bestSellersStateFlow
 
     private val _cartSizeFlow = MutableStateFlow(
-        0)
+        0
+    )
     val cartSizeFlow: StateFlow<Int>
         get() = _cartSizeFlow
 

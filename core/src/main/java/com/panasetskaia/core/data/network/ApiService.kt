@@ -3,7 +3,7 @@ package com.panasetskaia.core.data.network
 import com.panasetskaia.core.data.models.PhoneDtoModel
 import retrofit2.http.GET
 
-internal interface ApiService {
+interface ApiService {
     @GET("v3/654bd15e-b121-49ba-a588-960956b15175")
     suspend fun getStore(): StoreResponse
 

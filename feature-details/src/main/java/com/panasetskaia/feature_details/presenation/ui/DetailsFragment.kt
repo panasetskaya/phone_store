@@ -1,25 +1,24 @@
 package com.panasetskaia.feature_details.presenation.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.badge.BadgeDrawable
-import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.tabs.TabLayoutMediator
 import com.panasetskaia.core.domain.entities.Status
+import com.panasetskaia.core.utils.ViewModelFactory
 import com.panasetskaia.feature_details.R
 import com.panasetskaia.feature_details.databinding.FragmentDetailsBinding
+import com.panasetskaia.feature_details.di.DetailsComponentProvider
 import com.panasetskaia.feature_details.presenation.adapters.HorizontalMarginItemDecoration
 import com.panasetskaia.feature_details.presenation.adapters.ParentCategoryPagerAdapter
 import com.panasetskaia.feature_details.presenation.adapters.PhoneImagesListAdapter
@@ -27,17 +26,31 @@ import com.panasetskaia.feature_details.presenation.viewmodels.DetailsViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.lang.Math.abs
+import javax.inject.Inject
 
 
 class DetailsFragment : Fragment() {
 
-    private lateinit var viewModel: DetailsViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[DetailsViewModel::class.java]
+    }
+
     private lateinit var phoneImagesListAdapter: PhoneImagesListAdapter
     private lateinit var categoryPagerAdapter: ParentCategoryPagerAdapter
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding: FragmentDetailsBinding
         get() = _binding ?: throw RuntimeException("FragmentDetailsBinding is null")
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as DetailsComponentProvider)
+            .getDetailsComponent()
+            .injectDetailsFragment(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +62,6 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[DetailsViewModel::class.java]
         setupListeners()
         collectFlows()
         setupImagePager()

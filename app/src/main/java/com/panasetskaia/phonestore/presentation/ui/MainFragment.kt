@@ -1,5 +1,6 @@
 package com.panasetskaia.phonestore.presentation.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,23 +16,38 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.core.navigation.NavCommand
+import com.panasetskaia.core.utils.ViewModelFactory
 import com.panasetskaia.core.utils.navigate
+import com.panasetskaia.feature_cart.di.CartComponentProvider
 import com.panasetskaia.phonestore.R
+import com.panasetskaia.phonestore.application.StoreApplication
 import com.panasetskaia.phonestore.databinding.FragmentMainBinding
 import com.panasetskaia.phonestore.presentation.adapters.BestSellersListAdapter
 import com.panasetskaia.phonestore.presentation.adapters.HotSalesListAdapter
 import com.panasetskaia.phonestore.presentation.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MainFragment : Fragment() {
 
     private lateinit var closeDialog: ImageView
     private lateinit var applyFilters: Button
     private lateinit var bottomSheetDialog: BottomSheetDialog
-    private lateinit var viewModel: MainViewModel
     private lateinit var bestSellersListAdapter: BestSellersListAdapter
     private lateinit var hotSalesListAdapter: HotSalesListAdapter
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (context.applicationContext as StoreApplication).component.injectMainFragment(this)
+    }
 
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding
@@ -48,7 +64,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bottomSheetDialog = BottomSheetDialog(requireContext())
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         setupRecyclers()
         setListeners()
         setupBottomBar()

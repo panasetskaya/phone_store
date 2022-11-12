@@ -7,8 +7,9 @@ import com.panasetskaia.core.data.models.PhoneDtoModel
 import com.panasetskaia.core.domain.entities.BestSeller
 import com.panasetskaia.core.domain.entities.HotSale
 import com.panasetskaia.core.domain.entities.Phone
+import javax.inject.Inject
 
-internal class PhoneMapper {
+class PhoneMapper @Inject constructor() {
 
     fun mapBestSellerDataModelToEntity(bestSellerDtoModel: BestSellerDtoModel): BestSeller {
         return BestSeller(

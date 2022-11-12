@@ -1,28 +1,24 @@
 package com.panasetskaia.feature_details.presenation.viewmodels
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.panasetskaia.core.data.PhoneStoreRepositoryImpl
 import com.panasetskaia.core.domain.entities.NetworkResult
 import com.panasetskaia.core.domain.entities.Phone
 import com.panasetskaia.core.domain.entities.Status
 import com.panasetskaia.core.domain.usecases.AddToCartUseCase
-import com.panasetskaia.core.domain.usecases.GetCartSize
 import com.panasetskaia.core.domain.usecases.GetSinglePhoneUseCase
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailsViewModel(application: Application) : AndroidViewModel(application) {
+class DetailsViewModel @Inject constructor(
+    application: Application,
+    private val getPhone: GetSinglePhoneUseCase,
+    private val add: AddToCartUseCase
+) : AndroidViewModel(application) {
 
-    private val repo = PhoneStoreRepositoryImpl(application)
-    private val getPhone = GetSinglePhoneUseCase(repo)
-    private val add = AddToCartUseCase(repo)
 
     private val _phoneStateFlow = MutableStateFlow(
         NetworkResult(Status.LOADING, Phone(0), "")
@@ -36,11 +32,9 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
 
     fun addToCart(newPhone: Phone) {
         viewModelScope.launch {
-                add(newPhone)
-            }
+            add(newPhone)
         }
-
-
+    }
 
 
     fun getNewPhone() {

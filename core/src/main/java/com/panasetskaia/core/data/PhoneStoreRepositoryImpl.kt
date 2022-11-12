@@ -1,8 +1,7 @@
 package com.panasetskaia.core.data
 
-import android.app.Application
-import com.panasetskaia.core.data.database.CartDatabase
-import com.panasetskaia.core.data.network.ApiFactory
+import com.panasetskaia.core.data.database.CartDao
+import com.panasetskaia.core.data.network.ApiService
 import com.panasetskaia.core.domain.PhoneStoreRepository
 import com.panasetskaia.core.domain.entities.BestSeller
 import com.panasetskaia.core.domain.entities.HotSale
@@ -13,18 +12,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class PhoneStoreRepositoryImpl(application: Application) : PhoneStoreRepository {
-
-    private val apiService = ApiFactory.apiService
-    private val mapper = PhoneMapper()
-    private val db = CartDatabase.getInstance(application)
+class PhoneStoreRepositoryImpl @Inject constructor(
+    private val dao: CartDao,
+    private val mapper: PhoneMapper,
+    private val apiService: ApiService
+) : PhoneStoreRepository {
 
     override suspend fun getSinglePhone(): Flow<NetworkResult<Phone>> {
         return try {
             val phone = mapper.mapPhoneDtoModelToEntity(apiService.getSinglePhone())
             flow { emit(NetworkResult.success(phone)) }.flowOn(Dispatchers.IO)
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             flow {
                 emit(NetworkResult.error(e.message ?: "Error while loading"))
             }
@@ -67,16 +67,16 @@ class PhoneStoreRepositoryImpl(application: Application) : PhoneStoreRepository 
 
     override suspend fun addToCart(phone: Phone) {
         val dbModel = mapper.mapPhoneToDbModel(phone)
-        db.cartDao().addToCart(dbModel)
+        dao.addToCart(dbModel)
     }
 
     override suspend fun deleteFromCart(phone: Phone) {
         val dbModel = mapper.mapPhoneToDbModel(phone)
-        db.cartDao().deleteFromCart(dbModel.id)
+        dao.deleteFromCart(dbModel.id)
     }
 
     override suspend fun getCart(): Flow<List<Phone>> {
-        return db.cartDao().getAllCart().map {
+        return dao.getAllCart().map {
             val list = mutableListOf<Phone>()
             for (i in it) {
                 list.add(mapper.mapDbModelToPhone(i))
@@ -86,6 +86,6 @@ class PhoneStoreRepositoryImpl(application: Application) : PhoneStoreRepository 
     }
 
     override suspend fun getCartSize(): Flow<Int> {
-        return db.cartDao().getCartSize()
+        return dao.getCartSize()
     }
 }
