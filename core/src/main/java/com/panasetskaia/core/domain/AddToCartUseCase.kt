@@ -1,6 +1,5 @@
-package com.panasetskaia.core.domain.usecases
+package com.panasetskaia.core.domain
 
-import com.panasetskaia.core.domain.PhoneStoreRepository
 import com.panasetskaia.core.domain.entities.Phone
 import javax.inject.Inject
 

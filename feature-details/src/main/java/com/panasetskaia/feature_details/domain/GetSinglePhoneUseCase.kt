@@ -1,4 +1,4 @@
-package com.panasetskaia.core.domain.usecases
+package com.panasetskaia.feature_details.domain
 
 import com.panasetskaia.core.domain.PhoneStoreRepository
 import com.panasetskaia.core.domain.entities.NetworkResult

@@ -3,10 +3,10 @@ package com.panasetskaia.feature_cart.presentation.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.panasetskaia.core.domain.AddToCartUseCase
 import com.panasetskaia.core.domain.entities.Phone
-import com.panasetskaia.core.domain.usecases.AddToCartUseCase
-import com.panasetskaia.core.domain.usecases.DeleteFromCartUseCase
-import com.panasetskaia.core.domain.usecases.GetCartUseCase
+import com.panasetskaia.feature_cart.domain.DeleteFromCartUseCase
+import com.panasetskaia.feature_cart.domain.GetCartUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest

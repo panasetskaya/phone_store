@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.panasetskaia.core.domain.entities.NetworkResult
 import com.panasetskaia.core.domain.entities.Phone
 import com.panasetskaia.core.domain.entities.Status
-import com.panasetskaia.core.domain.usecases.AddToCartUseCase
-import com.panasetskaia.core.domain.usecases.GetSinglePhoneUseCase
+import com.panasetskaia.core.domain.AddToCartUseCase
+import com.panasetskaia.feature_details.domain.GetSinglePhoneUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
