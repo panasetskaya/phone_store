@@ -7,9 +7,9 @@ import com.panasetskaia.core.domain.entities.BestSeller
 import com.panasetskaia.core.domain.entities.HotSale
 import com.panasetskaia.core.domain.entities.NetworkResult
 import com.panasetskaia.core.domain.entities.Status
-import com.panasetskaia.core.domain.usecases.GetBestSellersUseCase
-import com.panasetskaia.core.domain.usecases.GetCartSize
-import com.panasetskaia.core.domain.usecases.GetHotSalesUseCase
+import com.panasetskaia.phonestore.domain.GetBestSellersUseCase
+import com.panasetskaia.phonestore.domain.GetCartSize
+import com.panasetskaia.phonestore.domain.GetHotSalesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
