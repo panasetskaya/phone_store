@@ -34,9 +34,8 @@ class PhoneStoreRepositoryImpl @Inject constructor(
     override suspend fun getHotSales(): Flow<NetworkResult<List<HotSale>>> {
         return try {
             val hotSalesDto = apiService.getStore().hotSales
-            val hotSales = mutableListOf<HotSale>()
-            for (i in hotSalesDto) {
-                hotSales.add(mapper.mapHotSaleDataModelToEntity(i))
+            val hotSales = hotSalesDto.map {
+                mapper.mapHotSaleDataModelToEntity(it)
             }
             flow {
                 emit(NetworkResult.success(hotSales))
@@ -51,9 +50,8 @@ class PhoneStoreRepositoryImpl @Inject constructor(
     override suspend fun getBestSellers(): Flow<NetworkResult<List<BestSeller>>> {
         return try {
             val bestSellersDto = apiService.getStore().bestSellers
-            val bestSellers = mutableListOf<BestSeller>()
-            for (i in bestSellersDto) {
-                bestSellers.add(mapper.mapBestSellerDataModelToEntity(i))
+            val bestSellers = bestSellersDto.map {
+                mapper.mapBestSellerDataModelToEntity(it)
             }
             flow {
                 emit(NetworkResult.success(bestSellers))
@@ -76,12 +74,10 @@ class PhoneStoreRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getCart(): Flow<List<Phone>> {
-        return dao.getAllCart().map {
-            val list = mutableListOf<Phone>()
-            for (i in it) {
-                list.add(mapper.mapDbModelToPhone(i))
+        return dao.getAllCart().map { dbList ->
+            dbList.map { dbModel ->
+                mapper.mapDbModelToPhone(dbModel)
             }
-            list
         }
     }
 
